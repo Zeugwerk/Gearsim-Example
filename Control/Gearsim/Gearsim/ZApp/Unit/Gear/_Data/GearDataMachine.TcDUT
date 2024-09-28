@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="GearDataMachine" Id="{0bafc0fd-4cbf-4ebb-bca8-45c99bf6ba4e}">
+    <Declaration><![CDATA[/// machine data that is used through most sequences of the unit (motor speed, axes positions, ...)
+TYPE GearDataMachine :
+STRUCT
+  SlowspeedX : LREAL;
+  HighspeedX : LREAL;
+  HomePositionX : LREAL;
+  SafePositionX : LREAL;
+  SpinPositionX : LREAL;
+  
+  SlowspeedC : LREAL;
+  HighspeedC : LREAL;  
+  HomeRotationC : LREAL;
+  
+  ToothAngle : LREAL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

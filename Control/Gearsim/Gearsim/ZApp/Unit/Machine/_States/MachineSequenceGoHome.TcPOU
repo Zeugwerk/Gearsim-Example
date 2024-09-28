@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="MachineSequenceGoHome" Id="{99673595-84fd-455a-8d42-a000b88428d9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK MachineSequenceGoHome EXTENDS MachineSequence IMPLEMENTS ZCore.ISequence
+VAR
+  _step : ZCore.Step(MachineStep.GohomeBegin, MachineStep.GohomeEnd);
+  _timer : ZAux.Timer;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT Busy THEN
+  RETURN;
+END_IF
+
+IF OnStart(_step) THEN
+  ; // init custom sequence variables here ...
+END_IF
+
+IF OnStop() THEN
+  RETURN; // external stop was triggered
+END_IF
+
+IF OnHalt() THEN
+  ; // Halting := TRUE; // Uncomment to acknowledge that the sequence is halting
+END_IF
+
+REPEAT
+  LogStep();
+
+  CASE _step.Index OF
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    MachineStep.GoHomeBegin:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      IF _step.OnEntry()
+      THEN
+        _unit.LeftGear.HomingAsync(THIS^, _parent);
+        _unit.RightGear.HomingAsync(THIS^, _parent);        
+      END_IF
+      
+      Await2(_unit.LeftGear, _unit.RightGear, nextStep:=MachineStep.GoHomeEnd);
+
+
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    MachineStep.GoHomeEnd:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      SetBusy(FALSE);
+  
+  ELSE
+    Abort('sequence contains unhandled step');
+  END_CASE
+UNTIL _step.IsNotRepeatable() OR_ELSE NOT Busy END_REPEAT]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

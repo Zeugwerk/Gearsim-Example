@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="GearStep" Id="{b909edbf-c55b-4624-aca3-1cf9f9f57833}">
+    <Declaration><![CDATA[/// This enumeration contains all steps that are used by the various sequences of a unit.
+/// Sequences use a subrange (***Begin to ***End) of this enumeration.
+{attribute 'qualified_only'}
+{attribute 'to_string'}
+TYPE GearStep :
+(
+  Undefined := 0
+  
+  ,BootBegin
+  ,BootEnd 
+
+  ,StopBegin
+  ,StopEnd
+
+  ,AutomaticBegin
+  ,AutomaticCloseGap
+  ,AutomaticSynchronized
+  ,AutomaticOpenGap
+  ,AutomaticTearDown
+  ,AutomaticSpinFast
+  ,AutomaticSpin
+  ,AutomaticHalt  
+  ,AutomaticEnd
+  
+  ,GoHomeBegin
+  ,GoHomePositionX
+  ,GoHomeRotationC
+  ,GoHomeEnd 
+  
+  ,FaultReactionBegin
+  ,FaultReactionEnd
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

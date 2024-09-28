@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="GearComSubscribe" Id="{0fccc25a-389e-4af7-b0a4-223743a943e9}">
+    <Declaration><![CDATA[TYPE GearComSubscribe :
+STRUCT
+  Request : GearComRequest; // contains booleans that are used to start a specific sequence.
+  Equipment : GearComSubscribeEquipment;  // structs for equipment objects which are used by the bridges
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

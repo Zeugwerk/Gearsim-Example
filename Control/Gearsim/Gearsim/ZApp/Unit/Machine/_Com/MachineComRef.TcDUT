@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="MachineComRef" Id="{39827b37-148f-40f2-b9c5-fb630c69f84f}">
+    <Declaration><![CDATA[/// container for all communication data types that are used by the unit
+TYPE MachineComRef :
+STRUCT
+  Publish : REFERENCE TO MachineComPublish; 
+  Subscribe : REFERENCE TO MachineComSubscribe; 
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

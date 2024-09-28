@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="GearSequenceStop" Id="{97ab607c-34a5-41ed-813e-8396f91d99f1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK GearSequenceStop EXTENDS GearSequence IMPLEMENTS ZCore.ISequence
+VAR
+  _step : ZCore.Step(GearStep.StopBegin, GearStep.StopEnd);
+  _timerSim : ZAux.Timer;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF OnStart(_step) THEN
+  ; // init custom sequence variables here ...
+END_IF
+
+REPEAT
+  LogStep();
+
+  CASE _step.Index OF
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.StopBegin:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      IF _step.OnEntry()
+      THEN
+        _axis.PositionX.StopAsync(THIS^);
+        _axis.RotationC.StopAsync(THIS^);
+      END_IF
+      
+      Await2( _axis.PositionX, _axis.RotationC, nextStep:=GearStep.StopEnd);
+
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.StopEnd:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)    
+      SetBusy(FALSE);
+  
+  ELSE
+    Abort('sequence contains unhandled step');
+  END_CASE
+UNTIL _step.IsNotRepeatable() OR_ELSE NOT Busy END_REPEAT]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

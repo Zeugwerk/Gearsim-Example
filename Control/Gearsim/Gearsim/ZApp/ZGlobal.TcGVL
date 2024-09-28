@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="ZGlobal" Id="{eb156a20-0182-495f-b441-a766648df103}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+  Com : ZCom;
+END_VAR
+VAR_GLOBAL PERSISTENT
+  Data : ZData;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

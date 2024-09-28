@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="GearContainer" Id="{4852439a-0787-4611-a0aa-def4a11e26cb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK GearContainer EXTENDS ZCore.ObjectContainer
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+  {attribute 'hide'}
+  _parent : REFERENCE TO GearUnit;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{53fd18ff-1343-4f6f-95de-d0c9d227c841}">
+      <Declaration><![CDATA[{attribute 'hide' }
+METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+  unit : REFERENCE TO GearUnit;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_parent REF= unit;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

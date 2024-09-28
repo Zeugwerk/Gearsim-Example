@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="GearEquipment" Id="{73199ef4-7678-4fbd-8d23-f27e3123b2ba}" SpecialFunc="None">
+    <Declaration><![CDATA[/// This function block is a container for equipment that is used by this unit.
+/// Equipment is grouped by its kind (actuator, axes, io, ...).
+/// It extends from [ManagedObjectContainer](xref:ZCore.ManagedObjectContainer) such that the parent
+/// (= the unit itself) can be passed to equipment instances.
+FUNCTION_BLOCK GearEquipment EXTENDS GearContainer
+VAR_INPUT
+  Io : GearIo(_parent);
+  Actuator : GearActuator(_parent);
+  Axis : GearAxis(_parent);
+  Fieldbus : GearFieldbus(_parent);
+  Unit : GearLinkedUnit(_parent);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

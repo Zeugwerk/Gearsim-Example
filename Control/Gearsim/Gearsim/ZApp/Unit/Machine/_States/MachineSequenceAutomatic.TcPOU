@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="MachineSequenceAutomatic" Id="{45b97503-6170-42a3-b50e-30cb99a9c3ad}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK MachineSequenceAutomatic EXTENDS MachineSequence IMPLEMENTS ZCore.ISequence
+VAR
+  _step : ZCore.Step(MachineStep.AutomaticBegin, MachineStep.AutomaticEnd);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT Busy THEN
+  RETURN;
+END_IF
+
+IF OnStart(_step) THEN
+  ; // init custom sequence variables here ...
+END_IF
+
+IF OnStop() THEN
+  RETURN; // external stop was triggered
+END_IF
+
+IF OnHalt() THEN
+  Halting := TRUE;
+END_IF
+
+REPEAT
+  LogStep();
+
+  CASE _step.Index OF
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    MachineStep.AutomaticBegin:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      IF _step.OnEntry()
+      THEN
+        _unit.LeftGear.RunAutomaticAsync(THIS^, _parent);
+        _unit.RightGear.RunAutomaticAsync(THIS^, _parent);        
+      END_IF
+      
+      Await2(obj1:=_unit.LeftGear, obj2:=_unit.RightGear, nextStep:=MachineStep.AutomaticEnd);
+      
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    MachineStep.AutomaticEnd:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      SetBusy(FALSE);
+  
+  ELSE
+    Abort('sequence contains unhandled step');
+  END_CASE
+UNTIL _step.IsNotRepeatable() OR_ELSE NOT Busy END_REPEAT]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

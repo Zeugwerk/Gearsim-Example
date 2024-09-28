@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="GearComSubscribeEquipment" Id="{74002096-5c71-4fb2-81a6-68699e004c50}">
+    <Declaration><![CDATA[TYPE GearComSubscribeEquipment :
+STRUCT
+
+{region "PositionX : Axis"}
+  PositionX : ZApplication.AxisComSubscribe;
+  {attribute 'ZId' := 'fbe544fd-32f7-4a35-b34a-168d60744a34'}
+{endregion}
+
+{region "RotationC : Axis"}
+  RotationC : ZApplication.AxisComSubscribe;
+  {attribute 'ZId' := '01f1af52-e172-4e11-895e-2a66564d7b35'}
+{endregion}
+
+{attribute '__ZwPlcUnitComDeclaration__'} // Do not remove this attribute! It is used for code generation.
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

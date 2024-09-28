@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="GearSequenceGoHome" Id="{628f2010-8039-4b2e-b2f4-cdb836ef1b67}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK GearSequenceGoHome EXTENDS GearSequence IMPLEMENTS ZCore.ISequence
+VAR
+  _step : ZCore.Step(GearStep.GohomeBegin, GearStep.GohomeEnd);
+  _timer : ZAux.Timer;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT Busy THEN
+  RETURN;
+END_IF
+
+IF OnStart(_step) THEN
+  ; // init custom sequence variables here ...
+END_IF
+
+IF OnStop() THEN
+  RETURN; // external stop was triggered
+END_IF
+
+IF OnHalt() THEN
+  ; // Halting := TRUE; // Uncomment to acknowledge that the sequence is halting
+END_IF
+
+REPEAT
+  LogStep();
+
+  CASE _step.Index OF
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.GoHomeBegin:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+
+      _step.SetNext(index:=GearStep.GoHomePositionX);
+
+	(* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.GoHomePositionX:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      IF _step.OnEntry()
+      THEN        
+        _axis.PositionX.MoveAbsoluteAsync(THIS^, _data.Machine.HomePositionX, _data.Machine.SlowspeedX);
+      END_IF
+      
+      Await(obj1:=_axis.PositionX, nextStep:=GearStep.GoHomeRotationC);
+
+	(* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.GoHomeRotationC:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      IF _step.OnEntry()
+      THEN        
+        _axis.RotationC.MoveAbsoluteAsync(THIS^, _axis.RotationC.ActualPosition 
+            + _data.Machine.ToothAngle
+            + _data.Calibration.OffsetRotationC, _data.Machine.SlowspeedC);
+      END_IF
+      
+      Await(obj1:=_axis.PositionX, nextStep:=GearStep.GoHomeEnd);
+
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.GoHomeEnd:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      SetBusy(FALSE);
+  
+  ELSE
+    Abort('sequence contains unhandled step');
+  END_CASE
+UNTIL _step.IsNotRepeatable() OR_ELSE NOT Busy END_REPEAT]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

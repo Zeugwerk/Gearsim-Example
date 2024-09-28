@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="GearDataConfig" Id="{ea041fb4-92d9-4a24-8b0e-f61744396d99}">
+    <Declaration><![CDATA[/// configuration data that is used during boot to configure the Units equipment
+TYPE GearDataConfig :
+STRUCT
+  Simulated : BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

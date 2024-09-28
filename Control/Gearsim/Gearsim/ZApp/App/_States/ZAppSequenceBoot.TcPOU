@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="ZAppSequenceBoot" Id="{6932de4a-944a-48e1-9132-46e9e357fa77}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ZAppSequenceBoot EXTENDS ZAppSequence IMPLEMENTS ZCore.ISequence
+VAR
+  _step : ZCore.Step(ZAppStep.BootBegin, ZAppStep.BootEnd);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF OnStart(_step)
+THEN
+  // init custom sequence variables here ...
+END_IF
+
+REPEAT
+  LogStep();
+
+  CASE _step.Index OF
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    ZAppStep.BootBegin:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    
+      IF _step.OnEntry()
+      THEN
+        ZModuleProgram.LoggerFile.MinimumLevel := ZCore.LogLevel.Trace;
+        ZModuleProgram.Logger.AddLogger(ZModuleProgram.LoggerFile);        
+        {attribute '__ZwPlcAppZComModuleContext__'} // Do not remove this attribute! It is used for code generation.      
+      END_IF
+      
+	  IF ZModuleProgram.Datetime.State <> ZCore.ObjectState.Booting
+      THEN
+        _step.SetNext(ZAppStep.BootLoadDefaultData);        
+      END_IF
+      
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    ZAppStep.BootLoadDefaultData:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+
+      LoadDefaultConfigData();
+      
+      IF IsCommissioning()
+      THEN
+        LoadDefaultData();
+      END_IF
+      
+      _step.SetNext(ZAppStep.BootEnd);
+      
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    ZAppStep.BootEnd:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      SetBusy(FALSE);
+      
+  ELSE
+    Abort('sequence contains unhandled step');
+  END_CASE
+UNTIL _step.IsNotRepeatable() OR_ELSE NOT Busy END_REPEAT]]></ST>
+    </Implementation>
+    <Method Name="IsCommissioning" Id="{a3ea03ec-ee5f-4d37-b289-be135ee49366}">
+      <Declaration><![CDATA[METHOD  IsCommissioning : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsCommissioning := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LoadDefaultConfigData" Id="{033f4bff-60a4-468c-8813-fef0ea28cd35}">
+      <Declaration><![CDATA[METHOD FINAL LoadDefaultConfigData]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+{region "LeftGear"}
+  {IF NOT (defined (LeftGear_disabled))}
+  ZGlobal.Data.Config.LeftGear.Simulated := TRUE;
+  {region "UserInitCode"}
+  // put your individual init code for this unit here
+  {endregion}
+  {END_IF}
+  {attribute 'ZId' := 'd1deea68-6f8b-4ea5-9916-7be69dc951fa'}
+{endregion}
+
+{region "Machine"}
+  {IF NOT (defined (Machine_disabled))}
+  ZGlobal.Data.Config.Machine.Simulated := TRUE;
+  {region "UserInitCode"}
+  // put your individual init code for this unit here
+  {endregion}
+  {END_IF}
+  {attribute 'ZId' := '9a1e8940-043c-4b8f-bd95-526fb267b71c'}
+{endregion}
+
+{region "RightGear"}
+  {IF NOT (defined (RightGear_disabled))}
+  ZGlobal.Data.Config.RightGear.Simulated := TRUE;
+  {region "UserInitCode"}
+  // put your individual init code for this unit here
+  {endregion}
+  {END_IF}
+  {attribute 'ZId' := '215d1db4-d61a-4f46-91b5-612373b86c91'}
+{endregion}
+
+{attribute '__ZwPlcUnitLoadDefaultConfigData__'} // Do not remove this attribute! It is used for code generation.
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LoadDefaultData" Id="{fa9633c4-76dc-4ebb-990b-7115ef78f212}">
+      <Declaration><![CDATA[METHOD FINAL LoadDefaultData]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ZGlobal.Data.Machine.LeftGear.SlowspeedX := 200;
+ZGlobal.Data.Machine.LeftGear.HighspeedX := 500;
+ZGlobal.Data.Machine.LeftGear.HomePositionX := 0;
+ZGlobal.Data.Machine.LeftGear.SafePositionX := 0;
+ZGlobal.Data.Machine.LeftGear.SpinPositionX := 0;
+ZGlobal.Data.Machine.LeftGear.SlowspeedC := 30;
+ZGlobal.Data.Machine.LeftGear.HighspeedC := 120;
+ZGlobal.Data.Machine.LeftGear.ToothAngle := 360 / 16;
+ZGlobal.Data.Calibration.LeftGear.OffsetRotationC := 0;
+
+
+ZGlobal.Data.Machine.RightGear.SlowspeedX := 200;
+ZGlobal.Data.Machine.RightGear.HighspeedX := 500;
+ZGlobal.Data.Machine.RightGear.HomePositionX := 200;
+ZGlobal.Data.Machine.RightGear.SafePositionX := -10;
+ZGlobal.Data.Machine.RightGear.SpinPositionX := -65;
+ZGlobal.Data.Machine.RightGear.SlowspeedC := 30;
+ZGlobal.Data.Machine.RightGear.HighspeedC := 120;
+ZGlobal.Data.Machine.RightGear.ToothAngle := 360 / 16;
+ZGlobal.Data.Calibration.RightGear.OffsetRotationC := 11.25;
+
+{attribute '__ZwPlcUnitLoadDefaultData__'} // Do not remove this attribute! It is used for code generation.
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
