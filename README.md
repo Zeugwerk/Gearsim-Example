@@ -22,7 +22,7 @@ To run this application, ensure you have the following installed:
 To run the Visualization in Windows a python distribution has to be installed (Anaconda or Miniconda is recommended).
 With an installed python distribution, execute the following commands in the `Visualization` folder to prepare a virtual environment for python and install all requirements
 
-```
+```bash
 pip install virtualenv
 virtualenv venv
 venv\Scripts\activate
@@ -31,6 +31,8 @@ pip install -r requirements.txt
 
 Activate the PLC and run the Visualization with 
 
-```
+```bash
 python main.py
 ```
+
+You can use the `Servicepanel`, which is integrated into Zeugwerk Creator to control the PLC.
