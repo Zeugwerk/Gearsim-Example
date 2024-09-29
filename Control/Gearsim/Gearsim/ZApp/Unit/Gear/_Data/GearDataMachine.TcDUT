@@ -4,6 +4,7 @@
     <Declaration><![CDATA[/// machine data that is used through most sequences of the unit (motor speed, axes positions, ...)
 TYPE GearDataMachine :
 STRUCT
+  Role : GearRole;
   SlowspeedX : LREAL;
   HighspeedX : LREAL;
   HomePositionX : LREAL;

@@ -20,8 +20,9 @@ REPEAT
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
       IF _step.OnEntry()
       THEN
-        _unit.LeftGear.StopAsync(THIS^, _parent);
-        _unit.RightGear.StopAsync(THIS^, _parent);        
+        _unit.PrimaryGear.StopAsync(THIS^, _parent);
+        _unit.SimpleGear.StopAsync(THIS^, _parent);    
+        _unit.StruckigGear.StopAsync(THIS^, _parent);        
       END_IF
       
       _step.SetNext(MachineStep.FaultReactionEnd);

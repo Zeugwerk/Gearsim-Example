@@ -5,8 +5,10 @@
 /// Linked units can be addressed through their individual interface.
 FUNCTION_BLOCK MachineLinkedUnit EXTENDS MachineContainer
 VAR_INPUT
-  LeftGear : IGear;
-  RightGear : IGear;  
+  PrimaryGear : IGear;
+  SimpleGear : IGear; 
+  StruckigGear : IGear;  
+ 
 {attribute '__ZwPlcUnitEquipmentDeclaration__'} // Do not remove this attribute! It is used for code generation.
 END_VAR
 ]]></Declaration>
@@ -16,8 +18,10 @@ THEN
   RETURN;
 END_IF
 
-LeftGear := ZModuleProgram.LeftGear;
-RightGear := ZModuleProgram.RightGear;
+PrimaryGear := ZModuleProgram.PrimaryGear;
+SimpleGear := ZModuleProgram.SimpleGear;
+StruckigGear := ZModuleProgram.StruckigGear;
+
 
 {attribute '__ZwPlcUnitEquipmentImplementation__'} // Do not remove this attribute! It is used for code generation.
 

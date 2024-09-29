@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="GearRole" Id="{002975d2-f5bb-4381-ad3b-3b7683ea35e1}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE GearRole :
+(
+  Undefined
+	,Primary
+  ,SecondarySimple
+  ,SecondaryStruckig
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

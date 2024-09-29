@@ -20,11 +20,12 @@ REPEAT
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
       IF _step.OnEntry()
       THEN
-        _unit.LeftGear.StopAsync(THIS^, _parent);
-        _unit.RightGear.StopAsync(THIS^, _parent);        
+        _unit.PrimaryGear.StopAsync(THIS^, _parent);
+        _unit.SimpleGear.StopAsync(THIS^, _parent);     
+        _unit.StruckigGear.StopAsync(THIS^, _parent);           
       END_IF
       
-      Await2(_unit.LeftGear, _unit.RightGear, nextStep:=MachineStep.StopEnd);
+      Await3(_unit.PrimaryGear, _unit.SimpleGear, _unit.StruckigGear, nextStep:=MachineStep.StopEnd);
 
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
     MachineStep.StopEnd:

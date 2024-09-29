@@ -16,13 +16,6 @@ TYPE GearStep :
   ,StopEnd
 
   ,AutomaticBegin
-  ,AutomaticCloseGap
-  ,AutomaticSynchronized
-  ,AutomaticOpenGap
-  ,AutomaticTearDown
-  ,AutomaticSpinFast
-  ,AutomaticSpin
-  ,AutomaticHalt  
   ,AutomaticEnd
   
   ,GoHomeBegin
@@ -32,6 +25,29 @@ TYPE GearStep :
   
   ,FaultReactionBegin
   ,FaultReactionEnd
+  ,AutomaticPrimaryBegin
+  ,AutomaticPrimaryHalt  
+  ,AutomaticPrimaryEnd
+  
+  ,AutomaticSecondarySimpleBegin
+  ,AutomaticSecondarySimpleCloseGap
+  ,AutomaticSecondarySimpleSynchronized
+  ,AutomaticSecondarySimpleOpenGap
+  ,AutomaticSecondarySimpleTearDown
+  ,AutomaticSecondarySimpleSpinFast
+  ,AutomaticSecondarySimpleSpin
+  ,AutomaticSecondarySimpleHalt    
+  ,AutomaticSecondarySimpleEnd
+  
+  ,AutomaticSecondaryStruckigBegin
+  ,AutomaticSecondaryStruckigCloseGap
+  ,AutomaticSecondaryStruckigSynchronized
+  ,AutomaticSecondaryStruckigOpenGap
+  ,AutomaticSecondaryStruckigTearDown
+  ,AutomaticSecondaryStruckigSpinFast
+  ,AutomaticSecondaryStruckigSpin
+  ,AutomaticSecondaryStruckigHalt     
+  ,AutomaticSecondaryStruckigEnd
 );
 END_TYPE
 ]]></Declaration>

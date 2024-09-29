@@ -40,9 +40,9 @@
         </InternalElement>
         <InternalElement Name="Gear" ID="4c08bcb1-14c0-4e8f-9942-ed50c5db2fbe" RefBaseSystemUnitPath="ZObjectLib/Unit/ZUnit">
           <InternalElement Name="Instance" ID="945cb471-0393-4eda-84ce-b8836abe1ceb">
-            <InternalElement Name="RightGear" ID="215d1db4-d61a-4f46-91b5-612373b86c91" RefBaseSystemUnitPath="ZObjectLib/Unit/ZUnitInstance">
+            <InternalElement Name="StruckigGear" ID="d827270e-999f-436d-80d5-b12442f5d1cf" RefBaseSystemUnitPath="ZObjectLib/Unit/ZUnitInstance">
               <Attribute Name="DisplayName" AttributeDataType="xs:string">
-                <Value>RightGear</Value>
+                <Value>StruckigGear</Value>
               </Attribute>
               <Attribute Name="RunInSeparateProgram" AttributeDataType="xs:boolean">
                 <Description>Shall the unit run in its own program (task)</Description>
@@ -58,9 +58,27 @@
               </Attribute>
               <RoleRequirements RefBaseRoleClassPath="ZRoleClassLib/ZObject" />
             </InternalElement>
-            <InternalElement Name="LeftGear" ID="d1deea68-6f8b-4ea5-9916-7be69dc951fa" RefBaseSystemUnitPath="ZObjectLib/Unit/ZUnitInstance">
+            <InternalElement Name="SimpleGear" ID="215d1db4-d61a-4f46-91b5-612373b86c91" RefBaseSystemUnitPath="ZObjectLib/Unit/ZUnitInstance">
               <Attribute Name="DisplayName" AttributeDataType="xs:string">
-                <Value>LeftGear</Value>
+                <Value>SimpleGear</Value>
+              </Attribute>
+              <Attribute Name="RunInSeparateProgram" AttributeDataType="xs:boolean">
+                <Description>Shall the unit run in its own program (task)</Description>
+                <DefaultValue>false</DefaultValue>
+                <Value>false</Value>
+              </Attribute>
+              <Attribute Name="IsDisabled" AttributeDataType="xs:boolean">
+                <DefaultValue>false</DefaultValue>
+                <Value>false</Value>
+              </Attribute>
+              <Attribute Name="Simulated" AttributeDataType="xs:string">
+                <Value>true</Value>
+              </Attribute>
+              <RoleRequirements RefBaseRoleClassPath="ZRoleClassLib/ZObject" />
+            </InternalElement>
+            <InternalElement Name="PrimaryGear" ID="d1deea68-6f8b-4ea5-9916-7be69dc951fa" RefBaseSystemUnitPath="ZObjectLib/Unit/ZUnitInstance">
+              <Attribute Name="DisplayName" AttributeDataType="xs:string">
+                <Value>PrimaryGear</Value>
               </Attribute>
               <Attribute Name="RunInSeparateProgram" AttributeDataType="xs:boolean">
                 <Description>Shall the unit run in its own program (task)</Description>
@@ -159,7 +177,50 @@
               <RoleRequirements RefBaseRoleClassPath="ZRoleClassLib/ZEquipment" />
             </InternalElement>
           </InternalElement>
-          <InternalElement Name="Logic" ID="1ddae538-ddeb-4aa0-bf94-a02fc274ff3c" />
+          <InternalElement Name="Logic" ID="1ddae538-ddeb-4aa0-bf94-a02fc274ff3c">
+            <InternalElement Name="AutomaticSecondaryStruckig" ID="79362472-a44e-4c7c-b677-cada7c3c933b" RefBaseSystemUnitPath="ZObjectLib/Unit/Logic/Sequence">
+              <Attribute Name="DisplayName" AttributeDataType="xs:string">
+                <Value>AutomaticSecondaryStruckig</Value>
+              </Attribute>
+              <Attribute Name="Type" AttributeDataType="xs:string">
+                <Value>Sequence</Value>
+              </Attribute>
+              <Attribute Name="UnitInstance" AttributeDataType="xs:boolean">
+                <Description>Sequence has an instance in the unit context available for all other sequences</Description>
+                <Value>True</Value>
+              </Attribute>
+              <RoleRequirements RefBaseRoleClassPath="ZRoleClassLib/ZObject" />
+              <RoleRequirements RefBaseRoleClassPath="ZRoleClassLib/ZLogic" />
+            </InternalElement>
+            <InternalElement Name="AutomaticSecondarySimple" ID="16b36b8d-fde6-4830-a9e3-c3507d13faec" RefBaseSystemUnitPath="ZObjectLib/Unit/Logic/Sequence">
+              <Attribute Name="DisplayName" AttributeDataType="xs:string">
+                <Value>AutomaticSecondarySimple</Value>
+              </Attribute>
+              <Attribute Name="Type" AttributeDataType="xs:string">
+                <Value>Sequence</Value>
+              </Attribute>
+              <Attribute Name="UnitInstance" AttributeDataType="xs:boolean">
+                <Description>Sequence has an instance in the unit context available for all other sequences</Description>
+                <Value>True</Value>
+              </Attribute>
+              <RoleRequirements RefBaseRoleClassPath="ZRoleClassLib/ZObject" />
+              <RoleRequirements RefBaseRoleClassPath="ZRoleClassLib/ZLogic" />
+            </InternalElement>
+            <InternalElement Name="AutomaticPrimary" ID="fc3b2a3d-8136-4db1-aaab-6cca602a7edf" RefBaseSystemUnitPath="ZObjectLib/Unit/Logic/Sequence">
+              <Attribute Name="DisplayName" AttributeDataType="xs:string">
+                <Value>AutomaticPrimary</Value>
+              </Attribute>
+              <Attribute Name="Type" AttributeDataType="xs:string">
+                <Value>Sequence</Value>
+              </Attribute>
+              <Attribute Name="UnitInstance" AttributeDataType="xs:boolean">
+                <Description>Sequence has an instance in the unit context available for all other sequences</Description>
+                <Value>True</Value>
+              </Attribute>
+              <RoleRequirements RefBaseRoleClassPath="ZRoleClassLib/ZObject" />
+              <RoleRequirements RefBaseRoleClassPath="ZRoleClassLib/ZLogic" />
+            </InternalElement>
+          </InternalElement>
           <RoleRequirements RefBaseRoleClassPath="AutomationMLExtendedRoleClassLib/Unit" />
         </InternalElement>
         <RoleRequirements RefBaseRoleClassPath="AutomationMLCSRoleClassLib/ControlEquipment/Controller/PLC" />

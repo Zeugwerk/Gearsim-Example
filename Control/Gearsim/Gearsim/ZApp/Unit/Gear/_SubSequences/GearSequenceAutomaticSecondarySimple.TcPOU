@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="GearSequenceAutomaticSecondarySimple" Id="{ff8052c1-62dc-4aa3-b9e8-3eb4763558b9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK GearSequenceAutomaticSecondarySimple EXTENDS GearSequence IMPLEMENTS ZCore.ISequence
+VAR
+  _step : ZCore.Step(GearStep.AutomaticSecondarySimpleBegin, GearStep.AutomaticSecondarySimpleEnd);
+  _timer : ZAux.Timer;
+  _waitDurationShort : ZAux.RandomGaussian(seed:=0, mu:=0.5, sigma:=1);
+  _waitDurationLong : ZAux.RandomGaussian(seed:=0, mu:=3, sigma:=1);
+  _spin : ZAux.RandomUniform(seed:=0, low:=0, high:=1);  
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT Busy THEN
+  RETURN;
+END_IF
+
+IF OnStart(_step) THEN
+  ; // init custom sequence variables here ...
+END_IF
+
+IF OnStop() THEN
+  RETURN; // external stop was triggered
+END_IF
+
+IF OnHalt() THEN
+  ; // Halting := TRUE; // Uncomment to acknowledge that the sequence is halting
+END_IF
+
+REPEAT
+  LogStep();
+
+  CASE _step.Index OF
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.AutomaticSecondarySimpleBegin:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      IF _step.OnEntry()
+      THEN
+        _waitDurationShort.SetSeed(_data.Machine.Role);
+        _waitDurationLong.SetSeed(_data.Machine.Role);
+
+        _axis.PositionX.MoveAbsoluteAsync(THIS^, _data.Machine.SafePositionX, _data.Machine.HighspeedX);
+        _axis.RotationC.MoveVelocityAsync(THIS^, _data.Machine.HighspeedC);
+      END_IF
+
+      _step.SetNext(GearStep.AutomaticSecondarySimpleCloseGap);
+      
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.AutomaticSecondarySimpleCloseGap:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      IF _step.OnEntry()
+      THEN
+        _axis.PositionX.MoveAbsoluteAsync(THIS^, _data.Machine.SpinPositionX, _data.Machine.HighspeedX);
+      END_IF
+
+      Assert(_axis.RotationC);
+      Await(obj1:=_axis.PositionX, nextStep:=GearStep.AutomaticSecondarySimpleSynchronized);
+      _step.SetNext(GearStep.AutomaticSecondarySimpleSynchronized);   
+      
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.AutomaticSecondarySimpleSynchronized:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    
+      IF _step.OnEntry()
+      THEN
+        _timer.WaitAsync(_waitDurationLong.Next());
+			END_IF
+    
+      Assert(_axis.PositionX);
+      Assert(_axis.RotationC);
+      
+      IF _timer.Done
+      THEN
+        IF _spin.Next() > 0.5
+        THEN
+          _step.SetNext(GearStep.AutomaticSecondarySimpleOpenGap);
+				END_IF
+			END_IF
+      
+      IF Halting
+      THEN
+        _step.SetNext(GearStep.AutomaticSecondarySimpleOpenGap);  
+			END_IF
+    
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.AutomaticSecondarySimpleOpenGap:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)    
+      IF _step.OnEntry()
+      THEN
+        _axis.PositionX.MoveAbsoluteAsync(THIS^, _data.Machine.SafePositionX, _data.Machine.HighspeedX);
+      END_IF
+
+      Assert(_axis.RotationC);
+      
+      IF Halting
+      THEN
+        Await(obj1:=_axis.PositionX, nextStep:=GearStep.AutomaticSecondarySimpleTearDown);
+        _step.SetNext(GearStep.AutomaticSecondarySimpleEnd);
+      ELSE
+        _step.SetNext(GearStep.AutomaticSecondarySimpleSpinFast);
+			END_IF
+
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.AutomaticSecondarySimpleSpinFast:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      IF _step.OnEntry()
+      THEN
+        _timer.WaitAsync(_waitDurationLong.Next());
+        _axis.RotationC.MoveVelocityAsync(THIS^, _data.Machine.HighspeedC*2);
+      END_IF
+
+      Assert(_axis.RotationC);
+
+      IF _timer.Done
+      THEN
+        _step.SetNext(GearStep.AutomaticSecondarySimpleSpin);          
+			END_IF
+
+
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.AutomaticSecondarySimpleSpin:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      IF _step.OnEntry()
+      THEN
+        _timer.WaitAsync(_waitDurationShort.Next());
+        _axis.RotationC.MoveVelocityAsync(THIS^, _data.Machine.HighspeedC);
+      END_IF
+
+      Assert(_axis.RotationC);
+      
+      IF _timer.Done
+      THEN
+        _step.SetNext(GearStep.AutomaticSecondarySimpleCloseGap);          
+			END_IF
+      
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.AutomaticSecondarySimpleTearDown:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)    
+      IF _step.OnEntry()
+      THEN
+        _axis.PositionX.MoveAbsoluteAsync(THIS^, _data.Machine.HomePositionX, _data.Machine.HighspeedX);
+        _axis.RotationC.MoveVelocityAsync(THIS^, _data.Machine.SlowspeedC);
+      END_IF
+
+      Assert(_axis.RotationC);
+      _step.SetNext(GearStep.AutomaticSecondarySimpleEnd);
+      
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.AutomaticSecondarySimpleHalt:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)    
+      IF _step.OnEntry()
+      THEN
+        _axis.RotationC.StopAsync(THIS^);
+      END_IF
+
+      Assert(_axis.RotationC);
+      Await(obj1:=_axis.RotationC, nextStep:=GearStep.AutomaticSecondarySimpleEnd);
+      
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.AutomaticSecondarySimpleEnd:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      SetBusy(FALSE);
+  
+  ELSE
+    Abort('sequence contains unhandled step');
+  END_CASE
+UNTIL _step.IsNotRepeatable() OR_ELSE NOT Busy END_REPEAT]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

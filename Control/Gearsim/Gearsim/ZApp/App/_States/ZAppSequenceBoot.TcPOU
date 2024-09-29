@@ -65,9 +65,9 @@ UNTIL _step.IsNotRepeatable() OR_ELSE NOT Busy END_REPEAT]]></ST>
       <Declaration><![CDATA[METHOD FINAL LoadDefaultConfigData]]></Declaration>
       <Implementation>
         <ST><![CDATA[
-{region "LeftGear"}
-  {IF NOT (defined (LeftGear_disabled))}
-  ZGlobal.Data.Config.LeftGear.Simulated := TRUE;
+{region "PrimaryGear"}
+  {IF NOT (defined (PrimaryGear_disabled))}
+  ZGlobal.Data.Config.PrimaryGear.Simulated := TRUE;
   {region "UserInitCode"}
   // put your individual init code for this unit here
   {endregion}
@@ -85,14 +85,24 @@ UNTIL _step.IsNotRepeatable() OR_ELSE NOT Busy END_REPEAT]]></ST>
   {attribute 'ZId' := '9a1e8940-043c-4b8f-bd95-526fb267b71c'}
 {endregion}
 
-{region "RightGear"}
-  {IF NOT (defined (RightGear_disabled))}
-  ZGlobal.Data.Config.RightGear.Simulated := TRUE;
+{region "SimpleGear"}
+  {IF NOT (defined (SimpleGear_disabled))}
+  ZGlobal.Data.Config.SimpleGear.Simulated := TRUE;
   {region "UserInitCode"}
   // put your individual init code for this unit here
   {endregion}
   {END_IF}
   {attribute 'ZId' := '215d1db4-d61a-4f46-91b5-612373b86c91'}
+{endregion}
+
+{region "StruckigGear"}
+  {IF NOT (defined (StruckigGear_disabled))}
+  ZGlobal.Data.Config.StruckigGear.Simulated := TRUE;
+  {region "UserInitCode"}
+  // put your individual init code for this unit here
+  {endregion}
+  {END_IF}
+  {attribute 'ZId' := 'd827270e-999f-436d-80d5-b12442f5d1cf'}
 {endregion}
 
 {attribute '__ZwPlcUnitLoadDefaultConfigData__'} // Do not remove this attribute! It is used for code generation.
@@ -102,26 +112,38 @@ UNTIL _step.IsNotRepeatable() OR_ELSE NOT Busy END_REPEAT]]></ST>
     <Method Name="LoadDefaultData" Id="{fa9633c4-76dc-4ebb-990b-7115ef78f212}">
       <Declaration><![CDATA[METHOD FINAL LoadDefaultData]]></Declaration>
       <Implementation>
-        <ST><![CDATA[ZGlobal.Data.Machine.LeftGear.SlowspeedX := 200;
-ZGlobal.Data.Machine.LeftGear.HighspeedX := 500;
-ZGlobal.Data.Machine.LeftGear.HomePositionX := 0;
-ZGlobal.Data.Machine.LeftGear.SafePositionX := 0;
-ZGlobal.Data.Machine.LeftGear.SpinPositionX := 0;
-ZGlobal.Data.Machine.LeftGear.SlowspeedC := 30;
-ZGlobal.Data.Machine.LeftGear.HighspeedC := 120;
-ZGlobal.Data.Machine.LeftGear.ToothAngle := 360 / 16;
-ZGlobal.Data.Calibration.LeftGear.OffsetRotationC := 0;
+        <ST><![CDATA[ZGlobal.Data.Machine.PrimaryGear.Role := GearRole.Primary;
+ZGlobal.Data.Machine.PrimaryGear.SlowspeedX := 200;
+ZGlobal.Data.Machine.PrimaryGear.HighspeedX := 500;
+ZGlobal.Data.Machine.PrimaryGear.HomePositionX := 0;
+ZGlobal.Data.Machine.PrimaryGear.SafePositionX := 0;
+ZGlobal.Data.Machine.PrimaryGear.SpinPositionX := 0;
+ZGlobal.Data.Machine.PrimaryGear.SlowspeedC := 30;
+ZGlobal.Data.Machine.PrimaryGear.HighspeedC := 60;
+ZGlobal.Data.Machine.PrimaryGear.ToothAngle := 360 / 16;
+ZGlobal.Data.Calibration.PrimaryGear.OffsetRotationC := 0;
 
+ZGlobal.Data.Machine.SimpleGear.Role := GearRole.SecondarySimple;
+ZGlobal.Data.Machine.SimpleGear.SlowspeedX := 200;
+ZGlobal.Data.Machine.SimpleGear.HighspeedX := 500;
+ZGlobal.Data.Machine.SimpleGear.HomePositionX := -30;
+ZGlobal.Data.Machine.SimpleGear.SafePositionX := -30;
+ZGlobal.Data.Machine.SimpleGear.SpinPositionX := -85;
+ZGlobal.Data.Machine.SimpleGear.SlowspeedC := 30;
+ZGlobal.Data.Machine.SimpleGear.HighspeedC := 60;
+ZGlobal.Data.Machine.SimpleGear.ToothAngle := 360 / 16;
+ZGlobal.Data.Calibration.SimpleGear.OffsetRotationC := 11.25;
 
-ZGlobal.Data.Machine.RightGear.SlowspeedX := 200;
-ZGlobal.Data.Machine.RightGear.HighspeedX := 500;
-ZGlobal.Data.Machine.RightGear.HomePositionX := 200;
-ZGlobal.Data.Machine.RightGear.SafePositionX := -10;
-ZGlobal.Data.Machine.RightGear.SpinPositionX := -65;
-ZGlobal.Data.Machine.RightGear.SlowspeedC := 30;
-ZGlobal.Data.Machine.RightGear.HighspeedC := 120;
-ZGlobal.Data.Machine.RightGear.ToothAngle := 360 / 16;
-ZGlobal.Data.Calibration.RightGear.OffsetRotationC := 11.25;
+ZGlobal.Data.Machine.StruckigGear.Role := GearRole.SecondaryStruckig;
+ZGlobal.Data.Machine.StruckigGear.SlowspeedX := 200;
+ZGlobal.Data.Machine.StruckigGear.HighspeedX := 500;
+ZGlobal.Data.Machine.StruckigGear.HomePositionX := -10;
+ZGlobal.Data.Machine.StruckigGear.SafePositionX := -10;
+ZGlobal.Data.Machine.StruckigGear.SpinPositionX := -85;
+ZGlobal.Data.Machine.StruckigGear.SlowspeedC := 30;
+ZGlobal.Data.Machine.StruckigGear.HighspeedC := 60;
+ZGlobal.Data.Machine.StruckigGear.ToothAngle := 360 / 16;
+ZGlobal.Data.Calibration.SimpleGear.OffsetRotationC := 11.25;
 
 {attribute '__ZwPlcUnitLoadDefaultData__'} // Do not remove this attribute! It is used for code generation.
 

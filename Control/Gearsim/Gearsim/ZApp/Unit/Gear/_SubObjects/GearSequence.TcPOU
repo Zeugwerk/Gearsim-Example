@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="GearSequence" Id="{4f6a4071-ef75-48eb-9e59-96ad93c42ee3}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK GearSequence EXTENDS ZApplication.Sequence
@@ -10,7 +10,8 @@ VAR
   _fieldbus : REFERENCE TO GearFieldbus;
   _axis : REFERENCE TO GearAxis;
   _data : REFERENCE TO GearDataRef;
-  _unit : REFERENCE TO GearLinkedUnit;  
+  _unit : REFERENCE TO GearLinkedUnit;
+  _subSequence : REFERENCE TO GearSubSequence;  
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -33,6 +34,7 @@ _fieldbus REF= unit._equipment.Fieldbus;
 _axis REF= unit._equipment.Axis;
 _unit REF= unit._equipment.Unit;
 _data REF= unit._data;
+_subSequence REF= unit._subSequence;
 _loggerDiagnostics.SetLogger(unit._logger);]]></ST>
       </Implementation>
     </Method>
