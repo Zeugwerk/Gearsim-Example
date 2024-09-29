@@ -1,7 +1,27 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <Itf Name="IGear" Id="{80332498-de82-456d-8714-aa13b66ccc93}">
     <Declaration><![CDATA[INTERFACE IGear EXTENDS ZApplication.IUnit
 ]]></Declaration>
+    <Property Name="PrimaryPositionC" Id="{2539f6cb-3b5f-4365-a51d-ce807e3114e5}">
+      <Declaration><![CDATA[PROPERTY PrimaryPositionC : LREAL]]></Declaration>
+      <Get Name="Get" Id="{6d62e976-34dc-4234-ac52-c30cfe84626b}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{ea366428-17b5-469c-91d8-96c6287bd93d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="PrimaryVelocityC" Id="{e6a11c7f-4d2e-4461-8251-90942bf8eb6f}">
+      <Declaration><![CDATA[PROPERTY PrimaryVelocityC : LREAL]]></Declaration>
+      <Get Name="Get" Id="{13986ded-ecd3-4267-aea0-64e509bf4c7c}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{bfbdd5a4-aa86-4a5f-a77f-677d78b999fe}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
   </Itf>
 </TcPlcObject>

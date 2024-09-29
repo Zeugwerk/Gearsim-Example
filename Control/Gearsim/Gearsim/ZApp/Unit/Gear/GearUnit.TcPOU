@@ -18,11 +18,20 @@ VAR
   _subSequence : GearSubSequence(THIS^);
 
   _observeTimer : ZAux.Timer;
+  
+  _primaryPositionC : LREAL;
+  _primaryVelocityC : LREAL;  
 END_VAR
 
 {attribute 'ZId' := '4c08bcb1-14c0-4e8f-9942-ed50c5db2fbe'}]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF _observeTimer.Done THEN
+      <ST><![CDATA[IF _data.Machine.Role = GearRole.Primary
+THEN
+  _primaryPositionC := _equipment.Axis.RotationC.ActualPosition;
+  _primaryVelocityC := _data.Machine.HighspeedC;  
+END_IF
+
+IF _observeTimer.Done THEN
   _observeTimer.WaitAsync(0.1);
   
   // monitor _com for requested actions (e.g. start homing, start automatic mode, ...)
@@ -38,7 +47,11 @@ END_VAR
   _com.Publish.Request.Halt := _stateMachine.IsTransitionAllowed(ZApplication.UnitStateMachineState.Halt);
 
   _com.Publish.State := _stateMachine.State();
-END_IF]]></ST>
+  
+  _com.Publish.PhaseOffsetC := Struckig.Fmod(_equipment.Axis.RotationC.ActualPosition - _primaryPositionC, _data.Machine.ToothAngle) - _data.Calibration.OffsetRotationC;
+END_IF
+
+]]></ST>
     </Implementation>
     <Folder Name="UnitInterface" Id="{50cd9324-6766-4458-9ad8-55c9bd15bdee}" />
     <Method Name="FB_init" Id="{f4cce598-e086-453b-b922-0d9c041bae4c}">
@@ -83,5 +96,44 @@ _statemachine.SetState(ZApplication.UnitStateMachineState.Boot);
 SetStateMachine(_statemachine);]]></ST>
       </Implementation>
     </Method>
+    <Property Name="PrimaryPositionC" Id="{61eb60fe-3dcb-41c0-92dd-500372bce8dc}">
+      <Declaration><![CDATA[PROPERTY PrimaryPositionC : LREAL]]></Declaration>
+      <Get Name="Get" Id="{383932f5-6c5e-4122-8104-3f949a86727c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PrimaryPositionC := _primaryPositionC;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{33169a2d-82bf-4637-83e7-6702a51939d5}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_primaryPositionC := PrimaryPositionC;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="PrimaryVelocityC" Id="{ccc26332-7cb6-42e5-86d0-ba47812b8372}">
+      <Declaration><![CDATA[PROPERTY PrimaryVelocityC : LREAL]]></Declaration>
+      <Get Name="Get" Id="{22afbd64-a3fb-4456-b63e-32ad54562a7a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PrimaryVelocityC := _primaryVelocityC;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{6116f444-8e80-4c4e-9812-d2b47a76f2fd}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_primaryVelocityC := PrimaryVelocityC;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
   </POU>
 </TcPlcObject>

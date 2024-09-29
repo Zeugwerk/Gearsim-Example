@@ -36,6 +36,11 @@ REPEAT
         _unit.StruckigGear.RunAutomaticAsync(THIS^, _parent);        
       END_IF
       
+      _unit.SimpleGear.PrimaryPositionC := _unit.PrimaryGear.PrimaryPositionC;
+      _unit.SimpleGear.PrimaryVelocityC := _unit.PrimaryGear.PrimaryVelocityC;
+      _unit.StruckigGear.PrimaryPositionC := _unit.PrimaryGear.PrimaryPositionC;
+      _unit.StruckigGear.PrimaryVelocityC := _unit.PrimaryGear.PrimaryVelocityC;
+   
       Await3(obj1:=_unit.PrimaryGear, obj2:=_unit.SimpleGear, obj3:=_unit.StruckigGear, nextStep:=MachineStep.AutomaticEnd);
       
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
