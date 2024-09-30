@@ -42,7 +42,7 @@ REPEAT
         _axis.RotationC.MoveVelocityAsync(THIS^, _data.Machine.HighspeedC);
       END_IF
 
-      _step.SetNext(GearStep.AutomaticSecondarySimpleCloseGap);
+      Await2(obj1:=_axis.RotationC, obj2:=_axis.PositionX, nextStep:=GearStep.AutomaticSecondarySimpleCloseGap);
       
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
     GearStep.AutomaticSecondarySimpleCloseGap:

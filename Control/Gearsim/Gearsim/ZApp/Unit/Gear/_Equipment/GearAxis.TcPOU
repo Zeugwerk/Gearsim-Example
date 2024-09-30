@@ -12,12 +12,12 @@ END_VAR
 VAR_INPUT
 
 {region "PositionX : AxisPlcOpenMc"}
-  PositionX : ZEquipment.AxisPlcOpenMc(_parent);
+  PositionX : ZEquipment.AxisSimulated(_parent);
   {attribute 'ZId' := 'fbe544fd-32f7-4a35-b34a-168d60744a34'}
 {endregion}
 
 {region "RotationC : AxisPlcOpenMc"}
-  RotationC : ZEquipment.AxisPlcOpenMc(_parent);
+  RotationC : ZEquipment.AxisSimulated(_parent);
   {attribute 'ZId' := '01f1af52-e172-4e11-895e-2a66564d7b35'}
 {endregion}
 
@@ -36,7 +36,15 @@ END_IF
   PositionX.SetLogger(_parent._logger);
   PositionX.SetName(name:='PositionX');
   PositionX.SetSimulation(_parent._data.Config.Simulated);
-  _axisbridge.AddAxisPlcOpenMc(axis:=PositionX, publish:=_parent._com.Publish.Equipment.PositionX, subscribe:=_parent._com.Subscribe.Equipment.PositionX);
+  _axisbridge.WithHoming(PositionX)
+     .WithMovePosition(PositionX)
+     .WithMoveVelocity(PositionX)
+     .WithHalt(PositionX)
+     .WithVelocityFeedrate(PositionX)
+     .WithFeedbackPosition(PositionX)
+     .WithFeedbackVelocity(PositionX)
+     .WithFeedbackCurrent(PositionX)
+     .AddAxis (axis:=PositionX, publish:=_parent._com.Publish.Equipment.PositionX, subscribe:=_parent._com.Subscribe.Equipment.PositionX);
 
   {region "UserInitCode"}
   // put your individual init code for this Axis here
@@ -49,8 +57,16 @@ END_IF
   RotationC.SetLogger(_parent._logger);
   RotationC.SetName(name:='RotationC');
   RotationC.SetSimulation(_parent._data.Config.Simulated);
-  _axisbridge.AddAxisPlcOpenMc(axis:=RotationC, publish:=_parent._com.Publish.Equipment.RotationC, subscribe:=_parent._com.Subscribe.Equipment.RotationC);
-
+  _axisbridge.WithHoming(RotationC)
+     .WithMovePosition(RotationC)
+     .WithMoveVelocity(RotationC)
+     .WithHalt(RotationC)
+     .WithVelocityFeedrate(RotationC)
+     .WithFeedbackPosition(RotationC)
+     .WithFeedbackVelocity(RotationC)
+     .WithFeedbackCurrent(RotationC)
+     .AddAxis (axis:=RotationC, publish:=_parent._com.Publish.Equipment.RotationC, subscribe:=_parent._com.Subscribe.Equipment.RotationC);	   
+			
   {region "UserInitCode"}
   // put your individual init code for this Axis here
   {endregion}

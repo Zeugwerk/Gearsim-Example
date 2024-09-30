@@ -16,6 +16,7 @@
     <Implicit_KindOfTask>{cbcd1dc4-1fc4-4440-b3ef-4d0cb11a90ae}</Implicit_KindOfTask>
     <Implicit_Jitter_Distribution>{022f468d-de12-4e80-b87f-4ae2904d8d9e}</Implicit_Jitter_Distribution>
     <LibraryReferences>{2c697a1d-60ee-4781-9a9a-b5441abf165b}</LibraryReferences>
+    <Released>false</Released>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ZApp\App\ZApp.TcPOU">
