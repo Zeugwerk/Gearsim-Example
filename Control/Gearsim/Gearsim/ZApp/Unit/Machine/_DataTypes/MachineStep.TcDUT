@@ -16,11 +16,13 @@ TYPE MachineStep :
   ,StopEnd
 
   ,AutomaticBegin
+  ,AutomaticAutomaticRunSecondaries
   ,AutomaticEnd
   
   ,GoHomeBegin
   ,GoHomePositionX
   ,GoHomeRotationC
+  ,GoHomeGoHomeSecondaries
   ,GoHomeEnd 
   
   ,FaultReactionBegin

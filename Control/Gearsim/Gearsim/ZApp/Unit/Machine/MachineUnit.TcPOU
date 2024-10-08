@@ -21,7 +21,12 @@ END_VAR
 
 {attribute 'ZId' := '5918240d-d585-4361-8bfb-e76d2a3c3fb9'}]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF _observeTimer.Done THEN
+      <ST><![CDATA[_equipment.Unit.SimpleGear.PrimaryPositionC := _equipment.Unit.PrimaryGear.PrimaryPositionC;
+_equipment.Unit.SimpleGear.PrimaryVelocityC := _equipment.Unit.PrimaryGear.PrimaryVelocityC;
+_equipment.Unit.StruckigGear.PrimaryPositionC := _equipment.Unit.PrimaryGear.PrimaryPositionC;
+_equipment.Unit.StruckigGear.PrimaryVelocityC := _equipment.Unit.PrimaryGear.PrimaryVelocityC;
+
+IF _observeTimer.Done THEN
   _observeTimer.WaitAsync(0.1);
   
   // monitor _com for requested actions (e.g. start homing, start automatic mode, ...)

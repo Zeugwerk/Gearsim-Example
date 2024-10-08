@@ -22,6 +22,7 @@ IF OnHalt() THEN
   Halting := TRUE;
 END_IF
 
+InSpeed := FALSE;
 REPEAT
   LogStep();
 
@@ -34,6 +35,8 @@ REPEAT
         _axis.RotationC.MoveVelocityAsync(THIS^, _data.Machine.HighspeedC);
       END_IF
 
+      InSpeed := _Axis.RotationC.Done;
+      
       IF Halting
       THEN
         _step.SetNext(GearStep.AutomaticPrimaryHalt);
@@ -60,5 +63,24 @@ REPEAT
   END_CASE
 UNTIL _step.IsNotRepeatable() OR_ELSE NOT Busy END_REPEAT]]></ST>
     </Implementation>
+    <Property Name="InSpeed" Id="{29b1c9cd-26ec-4c49-81b6-e82038a1933f}">
+      <Declaration><![CDATA[PROPERTY InSpeed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{2a7646f7-9d67-4645-be4c-4c3b1032e3c1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[InSpeed := _isInSpeed;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c1179681-f262-40dd-9087-2786070c21f3}">
+        <Declaration><![CDATA[PROTECTED VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_isInSpeed := InSpeed;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
   </POU>
 </TcPlcObject>

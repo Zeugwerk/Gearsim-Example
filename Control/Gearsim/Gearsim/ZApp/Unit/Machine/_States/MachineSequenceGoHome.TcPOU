@@ -33,11 +33,21 @@ REPEAT
       IF _step.OnEntry()
       THEN
         _unit.PrimaryGear.HomingAsync(THIS^, _parent);
-        _unit.SimpleGear.HomingAsync(THIS^, _parent);
-        _unit.StruckigGear.HomingAsync(THIS^, _parent);        
+        _timer.WaitAsync(3);
       END_IF
       
-      Await3(_unit.PrimaryGear, _unit.SimpleGear, _unit.StruckigGear, nextStep:=MachineStep.GoHomeEnd);
+      Await2(_unit.PrimaryGear, _timer, nextStep:=MachineStep.GoHomeGoHomeSecondaries);
+
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    MachineStep.GoHomeGoHomeSecondaries:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      IF _step.OnEntry()
+      THEN        
+        _unit.SimpleGear.HomingAsync(THIS^, _parent);
+        _unit.StruckigGear.HomingAsync(THIS^, _parent);   
+      END_IF
+      
+      Await2(_unit.SimpleGear, _unit.StruckigGear, nextStep:=MachineStep.GoHomeEnd);
 
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
     MachineStep.GoHomeEnd:

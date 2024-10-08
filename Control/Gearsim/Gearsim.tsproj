@@ -16,7 +16,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{045FF362-CC33-421E-898C-923B80D929AF}" Name="Gearsim" PrjFilePath="Gearsim\Gearsim.plcproj" TmcFilePath="Gearsim\Gearsim.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Gearsim\Gearsim.tmc" TmcHash="{66DD2229-5894-C0B9-1269-E22B68F14F36}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Gearsim\Gearsim.tmc" TmcHash="{7C422C86-635E-604F-479D-310957BD348A}">
 					<Name>Gearsim Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>

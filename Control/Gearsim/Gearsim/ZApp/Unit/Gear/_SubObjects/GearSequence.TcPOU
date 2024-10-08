@@ -12,6 +12,8 @@ VAR
   _data : REFERENCE TO GearDataRef;
   _unit : REFERENCE TO GearLinkedUnit;
   _subSequence : REFERENCE TO GearSubSequence;  
+  
+  _isInSpeed : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>

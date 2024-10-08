@@ -48,7 +48,7 @@ IF _observeTimer.Done THEN
 
   _com.Publish.State := _stateMachine.State();
   
-  _com.Publish.PhaseOffsetC := Struckig.Fmod(_equipment.Axis.RotationC.ActualPosition - _primaryPositionC, _data.Machine.ToothAngle) - _data.Calibration.OffsetRotationC;
+  _com.Publish.PhaseOffsetC := THIS^.PhaseOffsetC;
 END_IF
 
 ]]></ST>
@@ -96,6 +96,35 @@ _statemachine.SetState(ZApplication.UnitStateMachineState.Boot);
 SetStateMachine(_statemachine);]]></ST>
       </Implementation>
     </Method>
+    <Property Name="InSpeed" Id="{2f94f4b3-d37a-48ff-8c28-bfa4b95a43b2}">
+      <Declaration><![CDATA[PROPERTY InSpeed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{15c7f32c-e1b5-4537-90e5-d0d53a5699a8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[InSpeed := _statemachine.State() = UnitStateMachineState.Automatic AND_THEN _subSequence.AutomaticPrimary.InSpeed;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="PhaseOffsetC" Id="{719a7b04-5903-45c2-ab5c-bc724c609ca2}">
+      <Declaration><![CDATA[PROPERTY PhaseOffsetC : LREAL]]></Declaration>
+      <Get Name="Get" Id="{bc73052d-1b08-41f0-8cf2-8963aae1b7e8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PhaseOffsetC := Struckig.Fmod(_equipment.Axis.RotationC.ActualPosition - _primaryPositionC - _data.Calibration.OffsetRotationC, _data.Machine.ToothAngle);
+IF PhaseOffsetC > _data.Machine.ToothAngle / 2
+THEN
+  PhaseOffsetC := PhaseOffsetC - _data.Machine.ToothAngle;
+ELSIF PhaseOffsetC < -_data.Machine.ToothAngle / 2
+THEN
+  PhaseOffsetC := PhaseOffsetC + _data.Machine.ToothAngle;
+END_IF]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Property Name="PrimaryPositionC" Id="{61eb60fe-3dcb-41c0-92dd-500372bce8dc}">
       <Declaration><![CDATA[PROPERTY PrimaryPositionC : LREAL]]></Declaration>
       <Get Name="Get" Id="{383932f5-6c5e-4122-8104-3f949a86727c}">
