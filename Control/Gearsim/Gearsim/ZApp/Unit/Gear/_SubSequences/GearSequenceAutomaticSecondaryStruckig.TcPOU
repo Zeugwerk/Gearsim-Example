@@ -66,12 +66,10 @@ REPEAT
 	  
       IF _step.OnEntry()
       THEN
-        _otg.TargetVelocity[0] := _data.Machine.HighspeedC;
-        
-        // synchronize movement such that in 2 turns there is no offset
         _otg.ControlInterface := Struckig.ControlInterfaceType.Position;
-        _otg.TargetPosition[0] := _axis.RotationC.ActualPosition + 180.0 - _parent.PhaseOffsetC;
-        _otg.MinDuration := 180.0 / _data.Machine.HighspeedC;
+        _otg.TargetPosition[0] := _axis.RotationC.ActualPosition + _data.Machine.ToothAngle * 5 - _parent.PhaseOffsetC;
+        _otg.TargetVelocity[0] := _data.Machine.HighspeedC;
+        _otg.MinDuration := _data.Machine.ToothAngle * 5 / _data.Machine.HighspeedC;
         
       ELSIF _otg.State = Struckig.TrajectoryState.Error
       THEN
@@ -162,11 +160,9 @@ REPEAT
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
       IF _step.OnEntry()
       THEN
-        _otg.TargetVelocity[0] := _data.Machine.HighspeedC;
-        
-        // synchronize movement such that in several turns there is no offset
         _otg.ControlInterface := Struckig.ControlInterfaceType.Position;
-        _otg.TargetPosition[0] := _axis.RotationC.ActualPosition + _data.Machine.ToothAngle * 3 - _parent.PhaseOffsetC;
+        _otg.TargetPosition[0] := _axis.RotationC.ActualPosition + _data.Machine.ToothAngle * 5 - _parent.PhaseOffsetC;
+        _otg.TargetVelocity[0] := _data.Machine.HighspeedC;
         _otg.MinDuration := _data.Machine.ToothAngle * 5 / _data.Machine.HighspeedC;
         
         _timer.WaitAsync(_waitDurationShort.Next());
