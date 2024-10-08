@@ -1,11 +1,15 @@
 # Gearsim
 
-Gearsim is a PLC utilizing [Zeugwerk Framewerk](https://doc.zeugwerk.dev). This demo application showcases how to use [Units](https://doc.zeugwerk.dev/userguide/overview/overview_unit.html) and [Axes](https://doc.zeugwerk.dev/userguide/overview/overview_equipment.html) to control two indivual gears, which can be moved relative to each other. A python visualization provides a visual representation of real-time control and collision detection.
+Gearsim is a PLC utilizing [Zeugwerk Framewerk](https://doc.zeugwerk.dev). This demo application showcases how to use [Units](https://doc.zeugwerk.dev/userguide/overview/overview_unit.html) and [Axes](https://doc.zeugwerk.dev/userguide/overview/overview_equipment.html) to control indivuals gears, which can be moved relative to each other. A python visualization provides a visual representation of real-time control and collision detection.
 
-Note that the demo does not implement an accurate algorithm for synchronizing gears, but instead it provides the foundation for exploring and building upon. We encourage you to experiment and improve the implementation. This demo serves as a starting point for learning and customization, so feel free to play around and make it your own!
+In the demo, you can see three gears:
+
+- The **left gear** is the *primary* gear. During the automatic sequence of the machine, this gear rotates at a constant velocity.
+- The **upper right gear** tries to match the velocity of the primary gear and occasionally spins at twice the speed. However, this gear is not phase-synchronized with the primary gear—only the velocity is matched. As a result, you can observe crashes in the demo.
+- The **lower right gear** exhibits similar behavior to the upper gear, but it uses [Struckig](https://github.com/stefanbesler/struckig) to synchronize the phases. This ensures that the phases of the primary gear and the lower gear are aligned when they move together. The behavior is reminiscent of a flying saw.
 
 <div style="display: flex; justify-content: space-between;">
-<img src="/Images/Peek 2024-09-29 21-50.gif"/>
+<img src="/Images/Peek 2024-10-08 21-52.gif"/>
 </div>
 
 ## Requirements
