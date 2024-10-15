@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="GearSequence" Id="{4f6a4071-ef75-48eb-9e59-96ad93c42ee3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK GearSequence EXTENDS ZApplication.Sequence
+VAR
+  {attribute 'hide'}
+  _parent : REFERENCE TO GearUnit;
+  _io : REFERENCE TO GearIo;
+  _actuator : REFERENCE TO GearActuator;
+  _fieldbus : REFERENCE TO GearFieldbus;
+  _axis : REFERENCE TO GearAxis;
+  _data : REFERENCE TO GearDataRef;
+  _unit : REFERENCE TO GearLinkedUnit;  
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{36b21bd9-96b2-4e76-8864-cd9b3c249d48}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+  bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+  bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+  unit : REFERENCE TO GearUnit;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_parent REF= unit;
+_alarming := unit._alarming;
+_io REF= unit._equipment.Io;
+_actuator REF= unit._equipment.Actuator;
+_fieldbus REF= unit._equipment.Fieldbus;
+_axis REF= unit._equipment.Axis;
+_unit REF= unit._equipment.Unit;
+_data REF= unit._data;
+_loggerDiagnostics.SetLogger(unit._logger);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StepDecoded" Id="{1e9dbbf5-5fc1-4e89-82bc-860ea45c3c7d}">
+      <Declaration><![CDATA[METHOD StepDecoded : ZCore.ZString
+VAR_INPUT
+  stepIndex : INT;
+END_VAR
+VAR_INST
+  _stepIndexDecoded : GearStep;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_stepIndexDecoded := stepIndex;
+stepDecoded := TO_STRING(_stepIndexDecoded);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

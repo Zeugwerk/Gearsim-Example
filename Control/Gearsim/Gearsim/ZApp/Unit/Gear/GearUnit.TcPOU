@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="GearUnit" Id="{cf87d3fc-97b0-4e75-ae3d-1b37c186eec7}" SpecialFunc="None">
+    <Declaration><![CDATA[/// Declaration of a distinct unit of this application
+FUNCTION_BLOCK GearUnit EXTENDS ZApplication.Unit IMPLEMENTS IGear
+VAR
+  _equipment : GearEquipment(THIS^);
+  _data : GearDataRef;
+  _com : GearComRef;
+
+  _boot : GearSequenceBoot(THIS^);
+  _automatic : GearSequenceAutomatic(THIS^);
+  _stop : GearSequenceStop(THIS^);
+  _gohome : GearSequenceGoHome(THIS^);
+  _faultReaction : GearSequenceFaultReaction(THIS^);
+  
+  _statemachine : ZApplication.UnitStateMachine;
+
+  _observeTimer : ZAux.Timer;
+END_VAR
+
+{attribute 'ZId' := '4c08bcb1-14c0-4e8f-9942-ed50c5db2fbe'}]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF _observeTimer.Done THEN
+  _observeTimer.WaitAsync(0.1);
+  
+  // monitor _com for requested actions (e.g. start homing, start automatic mode, ...)
+  ObserveRequest(_com.Subscribe.Request.Start, ZApplication.UnitStateMachineState.Automatic);
+  ObserveRequest(_com.Subscribe.Request.Stop, ZApplication.UnitStateMachineState.Stop);
+  ObserveRequest(_com.Subscribe.Request.GoHome, ZApplication.UnitStateMachineState.GoHome);
+  ObserveRequest(_com.Subscribe.Request.Halt, ZApplication.UnitStateMachineState.Halt);
+  
+  // provide relevant information via ADS
+  _com.Publish.Request.Stop := _stateMachine.IsTransitionAllowed(ZApplication.UnitStateMachineState.Stop);
+  _com.Publish.Request.Start := _stateMachine.IsTransitionAllowed(ZApplication.UnitStateMachineState.Automatic);
+  _com.Publish.Request.GoHome := _stateMachine.IsTransitionAllowed(ZApplication.UnitStateMachineState.GoHome);
+  _com.Publish.Request.Halt := _stateMachine.IsTransitionAllowed(ZApplication.UnitStateMachineState.Halt);
+
+  _com.Publish.State := _stateMachine.State();
+END_IF]]></ST>
+    </Implementation>
+    <Folder Name="UnitInterface" Id="{50cd9324-6766-4458-9ad8-55c9bd15bdee}" />
+    <Method Name="FB_init" Id="{f4cce598-e086-453b-b922-0d9c041bae4c}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+  bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+  bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+  parent : ZCore.IManagedObject; // caller of the Unit's cyclic method. If the Unit runs in its own context use 0
+  name : ZCore.ZString;  // name of this unit as it should show up in the logger
+  configdata : REFERENCE TO GearDataConfig;  // reference to the configuration data that is used during boot to configure the Units equipment
+  machinedata : REFERENCE TO GearDataMachine; // reference to the machine data that is used through most sequences of the unit (motor speed, axes positions, ...)
+  calibrationdata : REFERENCE TO GearDataCalibration;  // reference to calibration that is determined by calibration sequences of the unit (static offsets, shifts)
+  com : REFERENCE TO GearCom;  // reference to the communication interface that is used to control this Unit via ADS
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_name := name;
+
+// initialize local logger decorator
+_loggerDecorator.FB_init(bInitRetains, bInCopyCode, name, ZModuleProgram.Logger);
+_alarmingDecorator.FB_init(bInitRetains, bInCopyCode, name, ZModuleProgram.Alarming);
+
+// setup data
+_data.Config REF= configdata;
+_data.Machine REF= machinedata;
+_data.Calibration REF= calibrationdata;
+_com.Publish REF= com.Publish;
+_com.Subscribe REF= com.Subscribe;
+
+// ------- sequence initialization, map sequences of this unit to the statemachine -------
+{attribute '__ZwPlcUnitInitSequenceImplementation__'} // Do not remove this attribute! It is used for code generation.
+_statemachine.SetSequence(ZApplication.UnitStateMachineState.Boot, _boot);
+_statemachine.SetSequence(ZApplication.UnitStateMachineState.FaultReaction, _faultReaction);
+_statemachine.SetSequence(ZApplication.UnitStateMachineState.Gohome, _gohome);
+_statemachine.SetSequence(ZApplication.UnitStateMachineState.Stop, _stop);
+_statemachine.SetSequence(ZApplication.UnitStateMachineState.Automatic, _automatic);
+
+_statemachine.SetName(_name);
+_statemachine.SetLogger(_logger);
+
+// set initial state
+_statemachine.SetState(ZApplication.UnitStateMachineState.Boot);
+SetStateMachine(_statemachine);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

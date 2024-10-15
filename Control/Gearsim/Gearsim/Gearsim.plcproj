@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <FileVersion>1.0.0.0</FileVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{045ff362-cc33-421e-898c-923b80d929af}</ProjectGuid>
+    <SubObjectsSortedByName>True</SubObjectsSortedByName>
+    <DownloadApplicationInfo>true</DownloadApplicationInfo>
+    <WriteProductVersion>false</WriteProductVersion>
+    <GenerateTpy>false</GenerateTpy>
+    <Name>Gearsim</Name>
+    <ProgramVersion>3.1.4023.0</ProgramVersion>
+    <Application>{680eece0-a0c6-4c47-a0fd-953106f29c18}</Application>
+    <TypeSystem>{52e19a92-0244-4cd4-be3c-96210c2e887b}</TypeSystem>
+    <Implicit_Task_Info>{f69b97cb-c7d8-4696-b825-48335ae6e852}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{cbcd1dc4-1fc4-4440-b3ef-4d0cb11a90ae}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{022f468d-de12-4e80-b87f-4ae2904d8d9e}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{2c697a1d-60ee-4781-9a9a-b5441abf165b}</LibraryReferences>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ZApp\App\ZApp.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\App\_DataTypes\ZAppStep.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\App\_States\ZAppSequenceBoot.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\App\_States\ZAppSequenceBootFault.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\App\_States\ZAppSequenceRunning.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\App\_SubObjects\ZAppSequence.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Com\_DataTypes\ZCom.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Com\_DataTypes\ZComUnit.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Data\_DataTypes\ZData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Data\_DataTypes\ZDataMachine.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Data\_DataTypes\ZDataConfig.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Data\_DataTypes\ZDataCalibration.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Data\_DataTypes\ZDataRecipe.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\GearUnit.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\GearUnitProgram.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\IGear.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Com\GearCom.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Com\GearComPublish.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Com\GearComPublishEquipment.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Com\GearComRef.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Com\GearComRequest.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Com\GearComSubscribe.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Com\GearComSubscribeEquipment.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_DataTypes\GearState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_DataTypes\GearStep.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Data\GearDataCalibration.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Data\GearDataConfig.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Data\GearDataMachine.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Data\GearDataRef.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Equipment\GearActuator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Equipment\GearAxis.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Equipment\GearEquipment.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Equipment\GearFieldbus.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Equipment\GearIo.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_Equipment\GearLinkedUnit.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_States\GearSequenceAutomatic.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_States\GearSequenceBoot.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_States\GearSequenceFaultReaction.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_States\GearSequenceGoHome.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_States\GearSequenceStop.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_SubObjects\GearContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_SubObjects\GearSequence.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\IMachine.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\MachineUnit.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\MachineUnitProgram.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Com\MachineCom.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Com\MachineComPublish.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Com\MachineComPublishEquipment.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Com\MachineComRef.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Com\MachineComRequest.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Com\MachineComSubscribe.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Com\MachineComSubscribeEquipment.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_DataTypes\MachineState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_DataTypes\MachineStep.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Data\MachineDataCalibration.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Data\MachineDataConfig.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Data\MachineDataMachine.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Data\MachineDataRef.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Equipment\MachineActuator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Equipment\MachineAxis.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Equipment\MachineEquipment.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Equipment\MachineFieldbus.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Equipment\MachineIo.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_Equipment\MachineLinkedUnit.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_States\MachineSequenceAutomatic.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_States\MachineSequenceBoot.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_States\MachineSequenceFaultReaction.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_States\MachineSequenceGoHome.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_States\MachineSequenceStop.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_SubObjects\MachineContainer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Machine\_SubObjects\MachineSequence.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\ZGlobal.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="ZApp\ZModuleProgram.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\ZModuleTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ZApp\App" />
+    <Folder Include="ZApp\App\_DataTypes" />
+    <Folder Include="ZApp\App\_States" />
+    <Folder Include="ZApp\App\_SubObjects" />
+    <Folder Include="ZApp\Com" />
+    <Folder Include="ZApp\Com\_DataTypes" />
+    <Folder Include="ZApp\Data" />
+    <Folder Include="ZApp\Data\_DataTypes" />
+    <Folder Include="ZApp" />
+    <Folder Include="ZApp\Unit" />
+    <Folder Include="ZApp\Unit\Gear" />
+    <Folder Include="ZApp\Unit\Gear\_Com" />
+    <Folder Include="ZApp\Unit\Gear\_Data" />
+    <Folder Include="ZApp\Unit\Gear\_DataTypes" />
+    <Folder Include="ZApp\Unit\Gear\_Equipment" />
+    <Folder Include="ZApp\Unit\Gear\_States" />
+    <Folder Include="ZApp\Unit\Gear\_SubObjects" />
+    <Folder Include="ZApp\Unit\Machine" />
+    <Folder Include="ZApp\Unit\Machine\_Com" />
+    <Folder Include="ZApp\Unit\Machine\_Data" />
+    <Folder Include="ZApp\Unit\Machine\_DataTypes" />
+    <Folder Include="ZApp\Unit\Machine\_Equipment" />
+    <Folder Include="ZApp\Unit\Machine\_States" />
+    <Folder Include="ZApp\Unit\Machine\_SubObjects" />
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderReference Include="Tc3_Module">
+      <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_Module</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="ZApplication">
+      <DefaultResolution>ZApplication, 1.5.37.1 (Zeugwerk GmbH)</DefaultResolution>
+      <Namespace>ZApplication</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="ZEquipment">
+      <DefaultResolution>ZEquipment, 1.5.37.1 (Zeugwerk GmbH)</DefaultResolution>
+      <Namespace>ZEquipment</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="ZAux">
+      <DefaultResolution>ZAux, 1.5.37.1 (Zeugwerk GmbH)</DefaultResolution>
+      <Namespace>ZAux</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="ZPlatform">
+      <DefaultResolution>ZPlatform, 1.5.37.1 (Zeugwerk GmbH)</DefaultResolution>
+      <Namespace>ZPlatform</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="ZCore">
+      <DefaultResolution>ZCore, 1.5.37.1 (Zeugwerk GmbH)</DefaultResolution>
+      <Namespace>ZCore</Namespace>
+    </PlaceholderReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Gearsim.tmc">
+      <SubType>Content</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderResolution Include="ZApplication">
+      <Resolution>ZApplication, 1.5.37.1 (Zeugwerk GmbH)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="ZEquipment">
+      <Resolution>ZEquipment, 1.5.37.1 (Zeugwerk GmbH)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="ZAux">
+      <Resolution>ZAux, 1.5.37.1 (Zeugwerk GmbH)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="ZPlatform">
+      <Resolution>ZPlatform, 1.5.37.1 (Zeugwerk GmbH)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="ZCore">
+      <Resolution>ZCore, 1.5.37.1 (Zeugwerk GmbH)</Resolution>
+    </PlaceholderResolution>
+  </ItemGroup>
+  <ProjectExtensions>
+    <PlcProjectOptions>
+      <XmlArchive>
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
+      <v n="Name">"&lt;ProjectRoot&gt;"</v>
+      <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+        <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>
+        <o>
+          <v n="Name">"{40450F57-0AA3-4216-96F3-5444ECB29763}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String" cvt="String">
+            <v>ActiveVisuProfile</v>
+            <v>IR0whWr8bwfwBwAAiD2qpQAAAABVAgAA37x72QAAAAABAAAAAAAAAAEaUwB5AHMAdABlAG0ALgBTAHQAcgBpAG4AZwACTHsAZgA5ADUAYgBiADQAMgA2AC0ANQA1ADIANAAtADQAYgA0ADUALQA5ADQAMAAwAC0AZgBiADAAZgAyAGUANwA3AGUANQAxAGIAfQADCE4AYQBtAGUABDBUAHcAaQBuAEMAQQBUACAAMwAuADEAIABCAHUAaQBsAGQAIAA0ADAAMgA0AC4ANwAFFlAAcgBvAGYAaQBsAGUARABhAHQAYQAGTHsAMQA2AGUANQA1AGIANgAwAC0ANwAwADQAMwAtADQAYQA2ADMALQBiADYANQBiAC0ANgAxADQANwAxADMAOAA3ADgAZAA0ADIAfQAHEkwAaQBiAHIAYQByAGkAZQBzAAhMewAzAGIAZgBkADUANAA1ADkALQBiADAANwBmAC0ANABkADYAZQAtAGEAZQAxAGEALQBhADgAMwAzADUANgBhADUANQAxADQAMgB9AAlMewA5AGMAOQA1ADgAOQA2ADgALQAyAGMAOAA1AC0ANAAxAGIAYgAtADgAOAA3ADEALQA4ADkANQBmAGYAMQBmAGUAZABlADEAYQB9AAoOVgBlAHIAcwBpAG8AbgALBmkAbgB0AAwKVQBzAGEAZwBlAA0KVABpAHQAbABlAA4aVgBpAHMAdQBFAGwAZQBtAE0AZQB0AGUAcgAPDkMAbwBtAHAAYQBuAHkAEAxTAHkAcwB0AGUAbQARElYAaQBzAHUARQBsAGUAbQBzABIwVgBpAHMAdQBFAGwAZQBtAHMAUwBwAGUAYwBpAGEAbABDAG8AbgB0AHIAbwBsAHMAEyhWAGkAcwB1AEUAbABlAG0AcwBXAGkAbgBDAG8AbgB0AHIAbwBsAHMAFCRWAGkAcwB1AEUAbABlAG0AVABlAHgAdABFAGQAaQB0AG8AcgAVIlYAaQBzAHUATgBhAHQAaQB2AGUAQwBvAG4AdAByAG8AbAAWFHYAaQBzAHUAaQBuAHAAdQB0AHMAFwxzAHkAcwB0AGUAbQAYGFYAaQBzAHUARQBsAGUAbQBCAGEAcwBlABkmRABlAHYAUABsAGEAYwBlAGgAbwBsAGQAZQByAHMAVQBzAGUAZAAaCGIAbwBvAGwAGyJQAGwAdQBnAGkAbgBDAG8AbgBzAHQAcgBhAGkAbgB0AHMAHEx7ADQAMwBkADUAMgBiAGMAZQAtADkANAAyAGMALQA0ADQAZAA3AC0AOQBlADkANAAtADEAYgBmAGQAZgAzADEAMABlADYAMwBjAH0AHRxBAHQATABlAGEAcwB0AFYAZQByAHMAaQBvAG4AHhRQAGwAdQBnAGkAbgBHAHUAaQBkAB8WUwB5AHMAdABlAG0ALgBHAHUAaQBkACBIYQBmAGMAZAA1ADQANAA2AC0ANAA5ADEANAAtADQAZgBlADcALQBiAGIANwA4AC0AOQBiAGYAZgBlAGIANwAwAGYAZAAxADcAIRRVAHAAZABhAHQAZQBJAG4AZgBvACJMewBiADAAMwAzADYANgBhADgALQBiADUAYwAwAC0ANABiADkAYQAtAGEAMAAwAGUALQBlAGIAOAA2ADAAMQAxADEAMAA0AGMAMwB9ACMOVQBwAGQAYQB0AGUAcwAkTHsAMQA4ADYAOABmAGYAYwA5AC0AZQA0AGYAYwAtADQANQAzADIALQBhAGMAMAA2AC0AMQBlADMAOQBiAGIANQA1ADcAYgA2ADkAfQAlTHsAYQA1AGIAZAA0ADgAYwAzAC0AMABkADEANwAtADQAMQBiADUALQBiADEANgA0AC0ANQBmAGMANgBhAGQAMgBiADkANgBiADcAfQAmFk8AYgBqAGUAYwB0AHMAVAB5AHAAZQAnVFUAcABkAGEAdABlAEwAYQBuAGcAdQBhAGcAZQBNAG8AZABlAGwARgBvAHIAQwBvAG4AdgBlAHIAdABpAGIAbABlAEwAaQBiAHIAYQByAGkAZQBzACgQTABpAGIAVABpAHQAbABlACkUTABpAGIAQwBvAG0AcABhAG4AeQAqHlUAcABkAGEAdABlAFAAcgBvAHYAaQBkAGUAcgBzACs4UwB5AHMAdABlAG0ALgBDAG8AbABsAGUAYwB0AGkAbwBuAHMALgBIAGEAcwBoAHQAYQBiAGwAZQAsEnYAaQBzAHUAZQBsAGUAbQBzAC1INgBjAGIAMQBjAGQAZQAxAC0AZAA1AGQAYwAtADQAYQAzAGIALQA5ADAANQA0AC0AMgAxAGYAYQA3ADUANgBhADMAZgBhADQALihJAG4AdABlAHIAZgBhAGMAZQBWAGUAcgBzAGkAbwBuAEkAbgBmAG8AL0x7AGMANgAxADEAZQA0ADAAMAAtADcAZgBiADkALQA0AGMAMwA1AC0AYgA5AGEAYwAtADQAZQAzADEANABiADUAOQA5ADYANAAzAH0AMBhNAGEAagBvAHIAVgBlAHIAcwBpAG8AbgAxGE0AaQBuAG8AcgBWAGUAcgBzAGkAbwBuADIMTABlAGcAYQBjAHkAMzBMAGEAbgBnAHUAYQBnAGUATQBvAGQAZQBsAFYAZQByAHMAaQBvAG4ASQBuAGYAbwA0MEwAbwBhAGQATABpAGIAcgBhAHIAaQBlAHMASQBuAHQAbwBQAHIAbwBqAGUAYwB0ADUaQwBvAG0AcABhAHQAaQBiAGkAbABpAHQAeQDQAAIaA9ADAS0E0AUGGgfQBwgaAUUHCQjQAAkaBEUKCwQDAAAABQAAAA0AAAAAAAAA0AwLrQIAAADQDQEtDtAPAS0Q0AAJGgRFCgsEAwAAAAUAAAANAAAAKAAAANAMC60BAAAA0A0BLRHQDwEtENAACRoERQoLBAMAAAAFAAAADQAAAAAAAADQDAutAgAAANANAS0S0A8BLRDQAAkaBEUKCwQDAAAABQAAAA0AAAAUAAAA0AwLrQIAAADQDQEtE9APAS0Q0AAJGgRFCgsEAwAAAAUAAAANAAAAAAAAANAMC60CAAAA0A0BLRTQDwEtENAACRoERQoLBAMAAAAFAAAADQAAAAAAAADQDAutAgAAANANAS0V0A8BLRDQAAkaBEUKCwQDAAAABQAAAA0AAAAAAAAA0AwLrQIAAADQDQEtFtAPAS0X0AAJGgRFCgsEAwAAAAUAAAANAAAAKAAAANAMC60EAAAA0A0BLRjQDwEtENAZGq0BRRscAdAAHBoCRR0LBAMAAAAFAAAADQAAAAAAAADQHh8tINAhIhoCRSMkAtAAJRoFRQoLBAMAAAADAAAAAAAAAAoAAADQJgutAAAAANADAS0n0CgBLRHQKQEtENAAJRoFRQoLBAMAAAADAAAAAAAAAAoAAADQJgutAQAAANADAS0n0CgBLRHQKQEtEJoqKwFFAAEC0AABLSzQAAEtF9AAHy0t0C4vGgPQMAutAQAAANAxC60XAAAA0DIarQDQMy8aA9AwC60CAAAA0DELrQMAAADQMhqtANA0Gq0A0DUarQA=</v>
+          </d>
+        </o>
+        <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
+        <o>
+          <v n="Name">"{192FAD59-8248-4824-A8DE-9177C94C195A}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" />
+        </o>
+      </d>
+      <d n="Values" t="Hashtable" />
+    </o>
+  </Data>
+  <TypeList>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
+    </PlcProjectOptions>
+  </ProjectExtensions>
+</Project>

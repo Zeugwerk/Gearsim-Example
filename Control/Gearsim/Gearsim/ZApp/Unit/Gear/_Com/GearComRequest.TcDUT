@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="GearComRequest" Id="{9a807700-acdf-404f-9270-fa4af62f1fe6}">
+    <Declaration><![CDATA[TYPE GearComRequest :
+STRUCT
+  Start : BOOL;
+  Stop : BOOL;
+  GoHome : BOOL;
+  Halt : BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

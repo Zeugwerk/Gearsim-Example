@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="GearDataRef" Id="{c54e9d9e-3e0e-447a-9571-13282ac033b5}">
+    <Declaration><![CDATA[/// container for all data that are used by the unit
+TYPE GearDataRef :
+STRUCT
+  Config : REFERENCE TO GearDataConfig; // data required for booting the unit (axes configuration, simulation, parameters that have to be written in PREOP, ...)
+  Machine : REFERENCE TO GearDataMachine; // speeds, positions, ...
+  Calibration : REFERENCE TO GearDataCalibration; // offsets, shifts of nominal to actual values
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

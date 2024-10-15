@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="GearFieldbus" Id="{b6c54b4d-69c1-4f7c-818b-93d8c79271cd}" SpecialFunc="None">
+    <Declaration><![CDATA[/// This function block is a container for all axis objects that are used by this unit.
+/// The parent of all objects can be directly transfered in their constructor (this is only relevant for equipment objects
+/// that have to be managed (e.g. [DebouncedInput](xref:ZEquipment.DebouncedInput), [Light](xref:ZEquipment.Light), ...).
+FUNCTION_BLOCK GearFieldbus EXTENDS GearContainer
+VAR
+END_VAR
+VAR_INPUT
+
+{attribute '__ZwPlcUnitEquipmentDeclaration__'} // Do not remove this attribute! It is used for code generation.
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF _isInitialized
+THEN
+  RETURN;
+END_IF
+
+{attribute '__ZwPlcUnitEquipmentImplementation__'} // Do not remove this attribute! It is used for code generation.]]>
+
+_isInitialized := TRUE;</ST></Implementation>
+  </POU>
+</TcPlcObject>

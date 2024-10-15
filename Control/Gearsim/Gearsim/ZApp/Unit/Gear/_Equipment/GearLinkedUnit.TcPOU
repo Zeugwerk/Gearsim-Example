@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="GearLinkedUnit" Id="{8617c3e6-7d88-441f-87f7-f714cb5faa88}" SpecialFunc="None">
+    <Declaration><![CDATA[/// This function block is a container for all linked units that are used by this unit.
+/// Linked units can be addressed through their individual interface.
+FUNCTION_BLOCK GearLinkedUnit EXTENDS GearContainer
+VAR_INPUT
+
+{attribute '__ZwPlcUnitEquipmentDeclaration__'} // Do not remove this attribute! It is used for code generation.
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF _isInitialized
+THEN
+  RETURN;
+END_IF
+
+{attribute '__ZwPlcUnitEquipmentImplementation__'} // Do not remove this attribute! It is used for code generation.]]>
+
+_isInitialized := TRUE;</ST></Implementation>
+  </POU>
+</TcPlcObject>

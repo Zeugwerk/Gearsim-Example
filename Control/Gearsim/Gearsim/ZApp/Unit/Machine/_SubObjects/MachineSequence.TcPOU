@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="MachineSequence" Id="{5352a6c7-f1b4-432f-aeec-c2a14dd8cf65}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK MachineSequence EXTENDS ZApplication.Sequence
+VAR
+  {attribute 'hide'}
+  _parent : REFERENCE TO MachineUnit;
+  _io : REFERENCE TO MachineIo;
+  _actuator : REFERENCE TO MachineActuator;
+  _fieldbus : REFERENCE TO MachineFieldbus;
+  _axis : REFERENCE TO MachineAxis;
+  _data : REFERENCE TO MachineDataRef;
+  _unit : REFERENCE TO MachineLinkedUnit;  
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{fe0b5950-1dd7-4599-ae89-122e48a40afb}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+  bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+  bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+  unit : REFERENCE TO MachineUnit;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_parent REF= unit;
+_alarming := unit._alarming;
+_io REF= unit._equipment.Io;
+_actuator REF= unit._equipment.Actuator;
+_fieldbus REF= unit._equipment.Fieldbus;
+_axis REF= unit._equipment.Axis;
+_unit REF= unit._equipment.Unit;
+_data REF= unit._data;
+_loggerDiagnostics.SetLogger(unit._logger);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StepDecoded" Id="{5725c45d-b9ef-496d-89c1-231be1aa246b}">
+      <Declaration><![CDATA[METHOD StepDecoded : ZCore.ZString
+VAR_INPUT
+  stepIndex : INT;
+END_VAR
+VAR_INST
+  _stepIndexDecoded : MachineStep;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_stepIndexDecoded := stepIndex;
+stepDecoded := TO_STRING(_stepIndexDecoded);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

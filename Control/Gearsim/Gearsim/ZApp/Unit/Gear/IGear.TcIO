@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="IGear" Id="{80332498-de82-456d-8714-aa13b66ccc93}">
+    <Declaration><![CDATA[INTERFACE IGear EXTENDS ZApplication.IUnit
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="MachineComPublishEquipment" Id="{d52ed9e8-7f2a-4496-b6e9-46f38c6a4efa}">
+    <Declaration><![CDATA[TYPE MachineComPublishEquipment :
+STRUCT
+
+{attribute '__ZwPlcUnitComDeclaration__'} // Do not remove this attribute! It is used for code generation.
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

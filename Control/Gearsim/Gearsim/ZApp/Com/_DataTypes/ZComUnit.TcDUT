@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ZComUnit" Id="{ea41edda-c498-42f4-9c16-0a33b9e88219}">
+    <Declaration><![CDATA[TYPE ZComUnit :
+STRUCT
+{region "LeftGear"}
+{IF NOT (defined (LeftGear_disabled))}
+  LeftGear : GearCom;
+  {attribute 'ZId' := 'd1deea68-6f8b-4ea5-9916-7be69dc951fa'}
+{END_IF}
+{endregion}
+{region "Machine"}
+{IF NOT (defined (Machine_disabled))}
+  Machine : MachineCom;
+  {attribute 'ZId' := '9a1e8940-043c-4b8f-bd95-526fb267b71c'}
+{END_IF}
+{endregion}
+{region "RightGear"}
+{IF NOT (defined (RightGear_disabled))}
+  RightGear : GearCom;
+  {attribute 'ZId' := '215d1db4-d61a-4f46-91b5-612373b86c91'}
+{END_IF}
+{endregion}
+{attribute '__ZwPlcApplicationComUnitDeclaration__'} // Do not remove this attribute! It is used for code generation.
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

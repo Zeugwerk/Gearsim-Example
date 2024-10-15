@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="GearComPublish" Id="{9d36799b-e822-49ad-b2bf-461af25558f5}">
+    <Declaration><![CDATA[/// this is the container of informations that the unit wants to share with the world outside of the PLC
+/// This struct should only be read from by external applications.
+TYPE GearComPublish :
+STRUCT
+  State : ZApplication.UnitStateMachineState; // state the unit is in
+  Request : GearComRequest; // booleans that indictate which action is currently possible to perform with this unit
+  Equipment : GearComPublishEquipment;  // structs for equipment objects which are used by the bridges
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

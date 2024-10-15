@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="ZModuleProgram" Id="{a120f957-5953-492b-ac4f-29b84ddfacdc}" SpecialFunc="None">
+    <Declaration><![CDATA[/// Zeugwerk Application
+PROGRAM ZModuleProgram
+VAR_INPUT
+{region "ZModuleProgram : Utility"}
+  App : ZApp(name:='Zeugwerk-Application Template', com:=ZGlobal.Com.App);
+  Datetime : ZAux.DateTimeUM;
+  {attribute 'ZId' := ''}
+{endregion}
+{region "ZModuleProgram : Logging"}
+  Alarming : ZApplication.Alarming(App, datetime := Datetime, com := ZGlobal.Com.Alarming);
+  LoggerHmi : ZApplication.Messaging(App, datetime := Datetime, com := ZGlobal.Com.Messages);
+  LoggerFile : ZAux.LoggerFile7FF(App, datetime := Datetime, filePath:='C:\Zeugwerk\logs\messages.log', target:='');
+  Logger : ZAux.Logging;
+  {attribute 'ZId' := ''}
+{endregion}  
+{attribute '__ZwPlcApplicationModuleProgramDeclaration__'} // Do not remove this attribute! It is used for code generation.
+{region "LeftGear"}
+{undefine RunInSeparateProgram}
+{IF NOT (defined (LeftGear_disabled)) AND NOT (defined (RunInSeparateProgram))}
+  LeftGear : GearUnit(name := 'LeftGear', // name of the unit (for logging)
+					  parent := App, // caller of the Unit's cyclic method. If the Unit runs in its own context use 0
+						configdata := ZGlobal.Data.Config.LeftGear,
+						machinedata := ZGlobal.Data.Machine.LeftGear,
+						calibrationdata := ZGlobal.Data.Calibration.LeftGear,
+						com := ZGlobal.Com.Unit.LeftGear);
+  {attribute 'section' := '__ZwPlcUnitProgramDeclaration__'}
+  {attribute 'ZId' := 'd1deea68-6f8b-4ea5-9916-7be69dc951fa'}
+{END_IF}
+{endregion}
+{region "Machine"}
+{undefine RunInSeparateProgram}
+{IF NOT (defined (Machine_disabled)) AND NOT (defined (RunInSeparateProgram))}
+  Machine : MachineUnit(name := 'Machine', // name of the unit (for logging)
+					  parent := App, // caller of the Unit's cyclic method. If the Unit runs in its own context use 0
+						configdata := ZGlobal.Data.Config.Machine,
+						machinedata := ZGlobal.Data.Machine.Machine,
+						calibrationdata := ZGlobal.Data.Calibration.Machine,
+						com := ZGlobal.Com.Unit.Machine);
+  {attribute 'section' := '__ZwPlcUnitProgramDeclaration__'}
+  {attribute 'ZId' := '9a1e8940-043c-4b8f-bd95-526fb267b71c'}
+{END_IF}
+{endregion}
+{region "RightGear"}
+{undefine RunInSeparateProgram}
+{IF NOT (defined (RightGear_disabled)) AND NOT (defined (RunInSeparateProgram))}
+  RightGear : GearUnit(name := 'RightGear', // name of the unit (for logging)
+					  parent := App, // caller of the Unit's cyclic method. If the Unit runs in its own context use 0
+						configdata := ZGlobal.Data.Config.RightGear,
+						machinedata := ZGlobal.Data.Machine.RightGear,
+						calibrationdata := ZGlobal.Data.Calibration.RightGear,
+						com := ZGlobal.Com.Unit.RightGear);
+  {attribute 'section' := '__ZwPlcUnitProgramDeclaration__'}
+  {attribute 'ZId' := '215d1db4-d61a-4f46-91b5-612373b86c91'}
+{END_IF}
+{endregion}
+{attribute '__ZwPlcUnitProgramDeclaration__'} // Do not remove this attribute! It is used for code generation.
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[{region "ZModuleProgram : Utility"}
+  Datetime.Cyclic();
+  App.Cyclic();
+  {attribute 'ZId' := ''}
+{endregion}
+{attribute '__ZwPlcApplicationModuleProgramImplementation__'} // Do not remove this attribute! It is used for code generation.
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

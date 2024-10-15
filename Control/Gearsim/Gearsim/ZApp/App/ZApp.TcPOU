@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="ZApp" Id="{af856156-85b3-4a75-98c7-11b8c2c48776}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ZApp EXTENDS ZApplication.Application
+VAR
+  _boot : ZAppSequenceBoot;
+  _bootFault : ZAppSequenceBootFault;
+  _running : ZAppSequenceRunning;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{b75cf818-75c4-401a-b032-332c8c2e06de}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+  bInitRetains : BOOL; /// if TRUE, the retain variables are initialized (warm start / cold start)
+  bInCopyCode : BOOL; /// if TRUE, the instance afterwards gets moved into the copy code (online change)
+  name : ZCore.ZString;
+  com : REFERENCE TO ZApplication.ApplicationComPublish;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetBootSequence(_boot);
+SetBootFaultSequence(_bootFault);
+SetRunningSequence(_running);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

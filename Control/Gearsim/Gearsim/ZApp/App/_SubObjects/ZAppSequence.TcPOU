@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="ZAppSequence" Id="{b7270cbd-13ae-45d0-a741-63deb8855cb9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT ZAppSequence EXTENDS ZApplication.Sequence IMPLEMENTS ZCore.ISequence
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="StepDecoded" Id="{841d67e8-d280-4eec-a0a9-6d4d12816c69}">
+      <Declaration><![CDATA[METHOD StepDecoded : ZCore.ZString
+VAR_INPUT
+  stepIndex : INT;
+END_VAR
+VAR_INST
+  _stepIndexDecoded : ZAppStep;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_stepIndexDecoded := stepIndex;
+StepDecoded := TO_STRING(_stepIndexDecoded);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

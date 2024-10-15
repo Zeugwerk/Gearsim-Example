@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="MachineSequenceBoot" Id="{4db07de6-89f2-426c-9998-5b53e636618f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK MachineSequenceBoot EXTENDS MachineSequence IMPLEMENTS ZCore.ISequence
+VAR
+  _step : ZCore.Step(MachineStep.BootBegin, MachineStep.BootEnd);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF OnStart(_step) THEN
+  ; // init custom sequence variables here ...
+END_IF
+
+REPEAT
+  LogStep();
+
+  CASE _step.Index OF
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    MachineStep.BootBegin:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      IF _step.OnEntry()
+      THEN
+        // initialize equipment
+        _io();
+        _actuator();
+        _fieldbus();
+        _axis();
+        _unit();
+      END_IF
+      
+      _parent._objectManager.Cyclic();      
+      Assert(_parent._objectManager);
+      IF _parent._objectManager.Booted
+      THEN
+        _step.SetNext(MachineStep.BootEnd);
+      END_IF
+
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    MachineStep.BootEnd:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      SetBusy(FALSE);
+      
+  ELSE
+    Abort('sequence contains unhandled step');
+  END_CASE
+UNTIL _step.IsNotRepeatable() OR_ELSE NOT Busy END_REPEAT]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

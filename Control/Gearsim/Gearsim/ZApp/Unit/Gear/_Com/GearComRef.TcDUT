@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="GearComRef" Id="{7d6e5b9f-a542-4817-a2bf-b616029c29f6}">
+    <Declaration><![CDATA[/// container for all communication data types that are used by the unit
+TYPE GearComRef :
+STRUCT
+  Publish : REFERENCE TO GearComPublish; 
+  Subscribe : REFERENCE TO GearComSubscribe; 
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

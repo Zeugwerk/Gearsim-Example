@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ZData" Id="{073363c1-2230-4d70-a034-086af5048cff}">
+    <Declaration><![CDATA[TYPE ZData :
+STRUCT
+  Config : ZDataConfig;
+  Machine : ZDataMachine;
+  Calibration : ZDataCalibration;
+  Recipe : ZDataRecipe;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

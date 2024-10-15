@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ZDataConfig" Id="{0f310ec7-f3db-4720-8b92-ca305f44cea9}">
+    <Declaration><![CDATA[TYPE ZDataConfig :
+STRUCT
+{region "LeftGear"}
+{IF NOT (defined (LeftGear_disabled))}
+  LeftGear : GearDataConfig;
+  {attribute 'ZId' := 'd1deea68-6f8b-4ea5-9916-7be69dc951fa'}
+{END_IF}
+{endregion}
+{region "Machine"}
+{IF NOT (defined (Machine_disabled))}
+  Machine : MachineDataConfig;
+  {attribute 'ZId' := '9a1e8940-043c-4b8f-bd95-526fb267b71c'}
+{END_IF}
+{endregion}
+{region "RightGear"}
+{IF NOT (defined (RightGear_disabled))}
+  RightGear : GearDataConfig;
+  {attribute 'ZId' := '215d1db4-d61a-4f46-91b5-612373b86c91'}
+{END_IF}
+{endregion}
+{attribute '__ZwPlcApplicationDataConfigDeclaration__'} // Do not remove this attribute! It is used for code generation.
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

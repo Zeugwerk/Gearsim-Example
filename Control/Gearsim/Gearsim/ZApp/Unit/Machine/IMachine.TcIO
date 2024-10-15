@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <Itf Name="IMachine" Id="{b0710145-60c9-4dd6-8f74-4b8f09ab1990}">
+    <Declaration><![CDATA[INTERFACE IMachine EXTENDS ZApplication.IUnit
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

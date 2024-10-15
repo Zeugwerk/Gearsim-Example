@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="GearSequenceBoot" Id="{aadc9c16-8418-42d5-9d4f-f0659156bc03}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK GearSequenceBoot EXTENDS GearSequence IMPLEMENTS ZCore.ISequence
+VAR
+  _step : ZCore.Step(GearStep.BootBegin, GearStep.BootEnd);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF OnStart(_step) THEN
+  ; // init custom sequence variables here ...
+END_IF
+
+REPEAT
+  LogStep();
+
+  CASE _step.Index OF
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.BootBegin:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      IF _step.OnEntry()
+      THEN
+        // initialize equipment
+        _io();
+        _actuator();
+        _fieldbus();
+        _axis();
+        _unit();
+      END_IF
+      
+      _parent._objectManager.Cyclic();      
+      Assert(_parent._objectManager);
+      IF _parent._objectManager.Booted
+      THEN
+        _step.SetNext(GearStep.BootEnd);
+      END_IF
+
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.BootEnd:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      SetBusy(FALSE);
+      
+  ELSE
+    Abort('sequence contains unhandled step');
+  END_CASE
+UNTIL _step.IsNotRepeatable() OR_ELSE NOT Busy END_REPEAT]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

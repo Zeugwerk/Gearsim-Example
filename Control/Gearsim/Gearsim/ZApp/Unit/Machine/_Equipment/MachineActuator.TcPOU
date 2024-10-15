@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="MachineActuator" Id="{e8ca4758-895e-4485-b910-72b4d9ae4f28}" SpecialFunc="None">
+    <Declaration><![CDATA[/// This function block is a container for all actuator objects that are used by this unit.
+/// The parent of all objects can be directly transfered in their constructor (this is only relevant for equipment objects
+/// that have to be managed (e.g. [DebouncedInput](xref:ZEquipment.DebouncedInput), [Light](xref:ZEquipment.Light), ...).
+FUNCTION_BLOCK MachineActuator EXTENDS MachineContainer
+VAR
+  {attribute 'hide'}
+  _actuatorbridge : ZApplication.ActuatorBridge(_parent);
+  {attribute 'hide'}
+  _iobridge : ZApplication.IoBridge(_parent);
+END_VAR
+VAR_INPUT
+
+{attribute '__ZwPlcUnitEquipmentDeclaration__'} // Do not remove this attribute! It is used for code generation.
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF _isInitialized
+THEN
+  RETURN;
+END_IF
+
+  _actuatorbridge.SetLogger(_parent._logger);
+
+{attribute '__ZwPlcUnitEquipmentImplementation__'} // Do not remove this attribute! It is used for code generation.]]>
+
+_isInitialized := TRUE;</ST></Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="MachineState" Id="{eb9cfbaa-6e64-4d5f-966d-eec45df95cfd}">
+    <Declaration><![CDATA[/// This enumeration contains all used defined sequences of a unit.
+/// Per default a unit makes use of the states that are contained in (UnitStateDefault)[xref:ZApplication.UnitStateDefault]. However,
+/// most of the time a unit need to perform some application depend sequences that can be performed by putting the unit into userdefined states.
+/// For instance, a robotic unit could use the state (automatic)[xref:ZApplication.UnitStateDefault] to lift an object from point A to point B,
+/// a userdefined state could be used to open and close the robotic-units gripper, respectively
+{attribute 'qualified_only'}
+TYPE MachineState :
+(
+	UserdefinedState1 := ZApplication.UnitStateMachineState.Last+1
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
