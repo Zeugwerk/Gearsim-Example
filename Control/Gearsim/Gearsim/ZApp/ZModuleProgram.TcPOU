@@ -5,7 +5,7 @@
 PROGRAM ZModuleProgram
 VAR_INPUT
 {region "ZModuleProgram : Utility"}
-  App : ZApp(name:='Zeugwerk-Application Template', com:=ZGlobal.Com.App);
+  App : ZApp(displayName:='Zeugwerk-Application Template', com:=ZGlobal.Com.App);
   Datetime : ZAux.DateTimeUM;
   {attribute 'ZId' := ''}
 {endregion}
