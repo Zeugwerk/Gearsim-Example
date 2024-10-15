@@ -295,23 +295,23 @@
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="ZApplication">
-      <DefaultResolution>ZApplication, 1.5.37.1 (Zeugwerk GmbH)</DefaultResolution>
+      <DefaultResolution>ZApplication, 1.5.38.0 (Zeugwerk GmbH)</DefaultResolution>
       <Namespace>ZApplication</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="ZEquipment">
-      <DefaultResolution>ZEquipment, 1.5.37.1 (Zeugwerk GmbH)</DefaultResolution>
+      <DefaultResolution>ZEquipment, 1.5.38.0 (Zeugwerk GmbH)</DefaultResolution>
       <Namespace>ZEquipment</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="ZAux">
-      <DefaultResolution>ZAux, 1.5.37.1 (Zeugwerk GmbH)</DefaultResolution>
+      <DefaultResolution>ZAux, 1.5.38.0 (Zeugwerk GmbH)</DefaultResolution>
       <Namespace>ZAux</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="ZPlatform">
-      <DefaultResolution>ZPlatform, 1.5.37.1 (Zeugwerk GmbH)</DefaultResolution>
+      <DefaultResolution>ZPlatform, 1.5.38.0 (Zeugwerk GmbH)</DefaultResolution>
       <Namespace>ZPlatform</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="ZCore">
-      <DefaultResolution>ZCore, 1.5.37.1 (Zeugwerk GmbH)</DefaultResolution>
+      <DefaultResolution>ZCore, 1.5.38.0 (Zeugwerk GmbH)</DefaultResolution>
       <Namespace>ZCore</Namespace>
     </PlaceholderReference>
   </ItemGroup>
@@ -322,19 +322,19 @@
   </ItemGroup>
   <ItemGroup>
     <PlaceholderResolution Include="ZApplication">
-      <Resolution>ZApplication, 1.5.37.1 (Zeugwerk GmbH)</Resolution>
+      <Resolution>ZApplication, 1.5.38.0 (Zeugwerk GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="ZEquipment">
-      <Resolution>ZEquipment, 1.5.37.1 (Zeugwerk GmbH)</Resolution>
+      <Resolution>ZEquipment, 1.5.38.0 (Zeugwerk GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="ZAux">
-      <Resolution>ZAux, 1.5.37.1 (Zeugwerk GmbH)</Resolution>
+      <Resolution>ZAux, 1.5.38.0 (Zeugwerk GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="ZPlatform">
-      <Resolution>ZPlatform, 1.5.37.1 (Zeugwerk GmbH)</Resolution>
+      <Resolution>ZPlatform, 1.5.38.0 (Zeugwerk GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="ZCore">
-      <Resolution>ZCore, 1.5.37.1 (Zeugwerk GmbH)</Resolution>
+      <Resolution>ZCore, 1.5.38.0 (Zeugwerk GmbH)</Resolution>
     </PlaceholderResolution>
   </ItemGroup>
   <ProjectExtensions>
