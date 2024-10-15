@@ -4,6 +4,10 @@ Gearsim is a PLC utilizing [Zeugwerk Framewerk](https://doc.zeugwerk.dev). This 
 
 Note that the demo does not implement an accurate algorithm for synchronizing gears, but instead it provides the foundation for exploring and building upon. We encourage you to experiment and improve the implementation. This demo serves as a starting point for learning and customization, so feel free to play around and make it your own!
 
+<div style="display: flex; justify-content: space-between;">
+<img src="/demo.gif"/>
+</div>
+
 ## Requirements
 
 To run this application, ensure you have the following installed:
