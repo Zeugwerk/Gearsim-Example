@@ -9,7 +9,7 @@ In the demo, you can see three gears:
 - The **lower right gear** exhibits similar behavior to the upper gear, but it uses [Struckig](https://github.com/stefanbesler/struckig) to synchronize the phases. This ensures that the phases of the primary gear and the lower gear are aligned when they move together. The behavior is reminiscent of a flying saw.
 
 <div style="display: flex; justify-content: space-between;">
-<img src="/Images/Peek 2024-10-08 21-52.gif"/>
+<img src="/Images/Peek 2024-10-08 22-11.gif"/>
 </div>
 
 ## Requirements
