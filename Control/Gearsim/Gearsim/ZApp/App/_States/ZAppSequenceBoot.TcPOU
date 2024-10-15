@@ -118,9 +118,9 @@ ZGlobal.Data.Machine.PrimaryGear.HighspeedX := 500;
 ZGlobal.Data.Machine.PrimaryGear.HomePositionX := 0;
 ZGlobal.Data.Machine.PrimaryGear.SafePositionX := 0;
 ZGlobal.Data.Machine.PrimaryGear.SpinPositionX := 0;
-ZGlobal.Data.Machine.PrimaryGear.SlowspeedC := 30;
-ZGlobal.Data.Machine.PrimaryGear.HighspeedC := 60;
-ZGlobal.Data.Machine.PrimaryGear.ToothAngle := 360 / 16;
+ZGlobal.Data.Machine.PrimaryGear.SlowspeedC := 15;
+ZGlobal.Data.Machine.PrimaryGear.HighspeedC := 30;
+ZGlobal.Data.Machine.PrimaryGear.ToothAngle := 360.0 / 32.0;
 ZGlobal.Data.Calibration.PrimaryGear.OffsetRotationC := 0;
 
 ZGlobal.Data.Machine.SimpleGear.Role := GearRole.SecondarySimple;
@@ -128,22 +128,22 @@ ZGlobal.Data.Machine.SimpleGear.SlowspeedX := 200;
 ZGlobal.Data.Machine.SimpleGear.HighspeedX := 500;
 ZGlobal.Data.Machine.SimpleGear.HomePositionX := -30;
 ZGlobal.Data.Machine.SimpleGear.SafePositionX := -30;
-ZGlobal.Data.Machine.SimpleGear.SpinPositionX := -85;
-ZGlobal.Data.Machine.SimpleGear.SlowspeedC := 30;
-ZGlobal.Data.Machine.SimpleGear.HighspeedC := 60;
-ZGlobal.Data.Machine.SimpleGear.ToothAngle := 360 / 16;
-ZGlobal.Data.Calibration.SimpleGear.OffsetRotationC := 11.25;
+ZGlobal.Data.Machine.SimpleGear.SpinPositionX := -160;
+ZGlobal.Data.Machine.SimpleGear.SlowspeedC := 15;
+ZGlobal.Data.Machine.SimpleGear.HighspeedC := 30;
+ZGlobal.Data.Machine.SimpleGear.ToothAngle := ZGlobal.Data.Machine.PrimaryGear.ToothAngle;
+ZGlobal.Data.Calibration.SimpleGear.OffsetRotationC := ZGlobal.Data.Machine.StruckigGear.ToothAngle / 2;
 
 ZGlobal.Data.Machine.StruckigGear.Role := GearRole.SecondaryStruckig;
 ZGlobal.Data.Machine.StruckigGear.SlowspeedX := 200;
 ZGlobal.Data.Machine.StruckigGear.HighspeedX := 500;
 ZGlobal.Data.Machine.StruckigGear.HomePositionX := -10;
 ZGlobal.Data.Machine.StruckigGear.SafePositionX := -10;
-ZGlobal.Data.Machine.StruckigGear.SpinPositionX := -85;
-ZGlobal.Data.Machine.StruckigGear.SlowspeedC := 30;
-ZGlobal.Data.Machine.StruckigGear.HighspeedC := 60;
-ZGlobal.Data.Machine.StruckigGear.ToothAngle := 360 / 16;
-ZGlobal.Data.Calibration.SimpleGear.OffsetRotationC := 11.25;
+ZGlobal.Data.Machine.StruckigGear.SpinPositionX := -160;
+ZGlobal.Data.Machine.StruckigGear.SlowspeedC := 15;
+ZGlobal.Data.Machine.StruckigGear.HighspeedC := 30;
+ZGlobal.Data.Machine.StruckigGear.ToothAngle := ZGlobal.Data.Machine.PrimaryGear.ToothAngle;
+ZGlobal.Data.Calibration.StruckigGear.OffsetRotationC := ZGlobal.Data.Machine.StruckigGear.ToothAngle / 2;
 
 {attribute '__ZwPlcUnitLoadDefaultData__'} // Do not remove this attribute! It is used for code generation.
 

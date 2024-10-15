@@ -3,6 +3,12 @@
   <Itf Name="IGear" Id="{80332498-de82-456d-8714-aa13b66ccc93}">
     <Declaration><![CDATA[INTERFACE IGear EXTENDS ZApplication.IUnit
 ]]></Declaration>
+    <Property Name="InSpeed" Id="{200bbd34-c280-4d0f-91aa-e9ce69c8e3df}">
+      <Declaration><![CDATA[PROPERTY InSpeed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{4a7c5c0c-af4f-4ce4-b1ce-9aba95ad5fee}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
     <Property Name="PrimaryPositionC" Id="{2539f6cb-3b5f-4365-a51d-ce807e3114e5}">
       <Declaration><![CDATA[PROPERTY PrimaryPositionC : LREAL]]></Declaration>
       <Get Name="Get" Id="{6d62e976-34dc-4234-ac52-c30cfe84626b}">

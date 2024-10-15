@@ -4,6 +4,7 @@
     <Declaration><![CDATA[FUNCTION_BLOCK MachineSequenceAutomatic EXTENDS MachineSequence IMPLEMENTS ZCore.ISequence
 VAR
   _step : ZCore.Step(MachineStep.AutomaticBegin, MachineStep.AutomaticEnd);
+  _timer : ZAux.Timer;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF NOT Busy THEN
@@ -32,15 +33,24 @@ REPEAT
       IF _step.OnEntry()
       THEN
         _unit.PrimaryGear.RunAutomaticAsync(THIS^, _parent);
-        _unit.SimpleGear.RunAutomaticAsync(THIS^, _parent);
-        _unit.StruckigGear.RunAutomaticAsync(THIS^, _parent);        
+        _timer.WaitAsync(1);
       END_IF
       
-      _unit.SimpleGear.PrimaryPositionC := _unit.PrimaryGear.PrimaryPositionC;
-      _unit.SimpleGear.PrimaryVelocityC := _unit.PrimaryGear.PrimaryVelocityC;
-      _unit.StruckigGear.PrimaryPositionC := _unit.PrimaryGear.PrimaryPositionC;
-      _unit.StruckigGear.PrimaryVelocityC := _unit.PrimaryGear.PrimaryVelocityC;
-   
+      Assert(_unit.PrimaryGear);
+      IF _unit.PrimaryGear.InSpeed AND_THEN _timer.Done
+      THEN
+        _step.SetNext(MachineStep.AutomaticAutomaticRunSecondaries);
+			END_IF
+
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    MachineStep.AutomaticAutomaticRunSecondaries:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+      IF _step.OnEntry()
+      THEN        
+        _unit.SimpleGear.RunAutomaticAsync(THIS^, _parent);
+        _unit.StruckigGear.RunAutomaticAsync(THIS^, _parent); 
+      END_IF
+         
       Await3(obj1:=_unit.PrimaryGear, obj2:=_unit.SimpleGear, obj3:=_unit.StruckigGear, nextStep:=MachineStep.AutomaticEnd);
       
     (* -------------------------------------------------------------------------------------------------------------------------------- *)

@@ -11,6 +11,7 @@ SetWindowPos = windll.user32.SetWindowPos
 pygame.init()
 screen = pygame.display.set_mode((800, 600)) 
 font = pygame.font.Font(pygame.font.get_default_font(), 16)
+logo_font = pygame.font.Font(pygame.font.get_default_font(), 32)
 pygame.display.set_caption("gearsim")
 
 # Colors
@@ -27,12 +28,12 @@ netid = None
 port = 851
 
 # Gear parameters
-gear_radius = 50
-tooth_count = 16
-tooth_depth = 10
+gear_radius = 110
+tooth_count = 32
+tooth_depth = 15
 gear1_pos = np.array([400, 300])
 gear2_pos = np.array([600, 300])
-gear3_pos = np.array([200, 300])
+gear3_pos = np.array([300, 300]) #np.array([200, 300])
 orbital_angle1 = 0
 orbital_angle2 = 0
 
@@ -48,13 +49,13 @@ def draw_hexagon(surface, color, center, radius):
     # Draw the hexagon
     pygame.draw.polygon(surface, color, vertices)
 
-def draw_text(text, pos):
+def draw_text(text, pos, font):
     draw_hexagon(screen, (42,51,75), (pos[0],pos[1]), 25)
     
     text_surface = font.render(text, True, (245,241,238))
     screen.blit(text_surface, dest=text_surface.get_rect(center=(pos[0],pos[1])))
     
-def draw_gear(screen, pos, radius, tooth_count, tooth_depth, rotation, color):
+def draw_gear(screen, pos, radius, tooth_count, tooth_depth, rotation, color, flip=False):
     angle_step = 2 * np.pi / tooth_count
     points = []
     for i in range(tooth_count * 2):
@@ -63,8 +64,14 @@ def draw_gear(screen, pos, radius, tooth_count, tooth_depth, rotation, color):
             r = radius + tooth_depth  # Tooth
         else:
             r = radius  # Base circle
-        x = pos[0] + r * math.cos(angle)
-        y = pos[1] + r * math.sin(angle)
+            
+        if flip:
+            x = pos[0] - r * math.cos(angle)
+            y = pos[1] - r * math.sin(angle)   
+        else:
+            x = pos[0] + r * math.cos(angle)
+            y = pos[1] + r * math.sin(angle)
+            
         points.append((x, y))
     pygame.draw.polygon(screen, color, points)
     
@@ -181,13 +188,13 @@ while running:
     keys = pygame.key.get_pressed()
     
     # Update positions with PLC data
-    gear1_pos[0] = 400 + read_gear_pos(plc, "PrimaryGear")
+    gear1_pos[0] = 200 + read_gear_pos(plc, "PrimaryGear")
     
-    gear2_distance = 200 + read_gear_pos(plc, "SimpleGear")
-    gear3_distance = -200 - read_gear_pos(plc, "StruckigGear")
+    gear2_distance = 400 + read_gear_pos(plc, "SimpleGear")
+    gear3_distance = 400 + read_gear_pos(plc, "StruckigGear")
     
-    orbital_angle1 += 0.007
-    orbital_angle2 -= 0.009
+    orbital_angle1 = -27 / 180 * np.pi
+    orbital_angle2 = 45 / 180 * np.pi
     gear2_pos = np.array([gear1_pos[0] + gear2_distance * np.cos(orbital_angle1), gear1_pos[1] + gear2_distance * np.sin(orbital_angle1)])
     gear3_pos = np.array([gear1_pos[0] + gear3_distance * np.cos(orbital_angle2), gear1_pos[1] + gear3_distance * np.sin(orbital_angle2)])
     
@@ -195,8 +202,8 @@ while running:
     gear2_rotation = -read_gear_rot(plc, "SimpleGear")  / 180 * np.pi
     gear3_rotation = -read_gear_rot(plc, "StruckigGear")  / 180 * np.pi
 
-    draw_rail_with_inner_slot(screen, gear1_pos, np.array([gear1_pos[0] + 250 * np.cos(orbital_angle1), gear1_pos[1] + 250 * np.sin(orbital_angle1)]), outer_width=30, inner_width=10, hole_radius=25)
-    draw_rail_with_inner_slot(screen, gear1_pos, np.array([gear1_pos[0] - 230 * np.cos(orbital_angle2), gear1_pos[1] - 230 * np.sin(orbital_angle2)]), outer_width=30, inner_width=10, hole_radius=25)
+    draw_rail_with_inner_slot(screen, gear1_pos, np.array([gear1_pos[0] + 400 * np.cos(orbital_angle1), gear1_pos[1] + 400 * np.sin(orbital_angle1)]), outer_width=30, inner_width=10, hole_radius=25)
+    draw_rail_with_inner_slot(screen, gear1_pos, np.array([gear1_pos[0] + 380 * np.cos(orbital_angle2), gear1_pos[1] + 380 * np.sin(orbital_angle2)]), outer_width=30, inner_width=10, hole_radius=25)
 
     # Detect collisions and adjust color
     gear2_color = COLLISION_COLOR if detect_collision(gear1_pos, gear2_pos, gear1_rotation, gear2_rotation, gear_radius, gear_radius, tooth_depth, tooth_count) else RSPIN_COLOR
@@ -204,8 +211,8 @@ while running:
 
     # Draw gears
     draw_gear(screen, gear1_pos, gear_radius, tooth_count, tooth_depth, gear1_rotation, LSPIN_COLOR)
-    draw_gear(screen, gear3_pos, gear_radius, tooth_count, tooth_depth, gear3_rotation, gear3_color)
-    draw_gear(screen, gear2_pos, gear_radius, tooth_count, tooth_depth, gear2_rotation, gear2_color)
+    draw_gear(screen, gear3_pos, gear_radius, tooth_count, tooth_depth, gear3_rotation, gear3_color, True)
+    draw_gear(screen, gear2_pos, gear_radius, tooth_count, tooth_depth, gear2_rotation, gear2_color, True)
     
     draw_hexagon(screen, (42,51,75), (gear1_pos[0],gear1_pos[1]), 15)
     
@@ -213,9 +220,12 @@ while running:
     phase_offset1 = read_phase_offset(plc, "SimpleGear")
     phase_offset2 = read_phase_offset(plc, "StruckigGear")   
     
-    draw_text(f"{phase_offset1:.1f}°", gear2_pos)
-    draw_text(f"{phase_offset2:.1f}°", gear3_pos)
-
+    draw_text(f"{phase_offset1:.1f}°", gear2_pos, font)
+    draw_text(f"{phase_offset2:.1f}°", gear3_pos, font)
+    
+    text_surface = logo_font.render("Z E U G W E R K", True, (42,51,75))
+    screen.blit(text_surface, dest=text_surface.get_rect(center=(140, 580)))
+    
     # Update display
     pygame.display.flip()
     clock.tick(60)

@@ -48,9 +48,8 @@ REPEAT
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
       IF _step.OnEntry()
       THEN        
-        _axis.RotationC.MoveAbsoluteAsync(THIS^, _axis.RotationC.ActualPosition 
-            + _data.Machine.ToothAngle
-            + _data.Calibration.OffsetRotationC, _data.Machine.SlowspeedC);
+        _axis.RotationC.MoveAbsoluteAsync(THIS^,
+            _axis.RotationC.ActualPosition - _parent.PhaseOffsetC + _data.Machine.ToothAngle, _data.Machine.SlowspeedC);
       END_IF
       
       Await(obj1:=_axis.PositionX, nextStep:=GearStep.GoHomeEnd);

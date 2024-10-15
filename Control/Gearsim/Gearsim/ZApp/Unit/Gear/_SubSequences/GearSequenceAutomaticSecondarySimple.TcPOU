@@ -63,7 +63,7 @@ REPEAT
       IF _step.OnEntry()
       THEN
         _timer.WaitAsync(_waitDurationLong.Next());
-			END_IF
+      END_IF
     
       Assert(_axis.PositionX);
       Assert(_axis.RotationC);
@@ -142,7 +142,7 @@ REPEAT
       END_IF
 
       Assert(_axis.RotationC);
-      _step.SetNext(GearStep.AutomaticSecondarySimpleEnd);
+      _step.SetNext(GearStep.AutomaticSecondarySimpleHalt);
       
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
     GearStep.AutomaticSecondarySimpleHalt:
