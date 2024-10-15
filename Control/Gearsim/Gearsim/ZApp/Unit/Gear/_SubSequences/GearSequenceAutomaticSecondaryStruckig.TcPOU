@@ -8,6 +8,9 @@ VAR
   _waitDurationShort : ZAux.RandomGaussian(seed:=0, mu:=0.5, sigma:=1);
   _waitDurationLong : ZAux.RandomGaussian(seed:=0, mu:=3, sigma:=1);
   _spin : ZAux.RandomUniform(seed:=0, low:=0, high:=1);  
+  _otg : Struckig.Otg(cycletime:=0, dofs:=1);
+  _rt : ZAux.RealTime;
+  _startToken : ZCore.StartToken;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF NOT Busy THEN
@@ -39,11 +42,35 @@ REPEAT
         _waitDurationLong.SetSeed(_data.Machine.Role);
       
         _axis.PositionX.MoveAbsoluteAsync(THIS^, _data.Machine.SafePositionX, _data.Machine.HighspeedX);
-        _axis.RotationC.MoveVelocityAsync(THIS^, _data.Machine.HighspeedC);
+        _axis.RotationC.MoveInterpolatedPositionAsync(THIS^);
       END_IF
 
-      _step.SetNext(GearStep.AutomaticSecondaryStruckigCloseGap);
+      Await2(obj1:=_axis.RotationC, obj2:=_axis.PositionX, nextStep:=GearStep.AutomaticSecondaryStruckigRotate);	  
       
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.AutomaticSecondaryStruckigRotate:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+	  
+      IF _step.OnEntry()
+      THEN
+        _otg.CycleTime := _rt.CycleTimeInSeconds();
+        _otg.ControlInterface := Struckig.ControlInterfaceType.Velocity;
+        _otg.CurrentPosition[0] := _axis.RotationC.ActualPosition;
+        _otg.CurrentVelocity[0] := _axis.RotationC.ActualVelocity;
+        _otg.CurrentAcceleration[0] := 0;
+        _otg.MaxAcceleration[0] := _axis.RotationC.Parameter.Simulation.ProfileAcceleration;
+        _otg.MaxJerk[0] := _axis.RotationC.Parameter.Simulation.ProfileJerk;
+        _otg.MaxVelocity[0] := _data.Machine.HighspeedC;
+        _otg.TargetVelocity[0] := _data.Machine.HighspeedC;
+        _otg.EnableAutoPropagate := TRUE;
+      ELSIF _otg.State = Struckig.TrajectoryState.Error
+      THEN
+        Abort(_otg.ErrorMessage());
+      ELSIF _otg.State = Struckig.TrajectoryState.Idle
+      THEN
+        _step.SetNext(GearStep.AutomaticSecondaryStruckigCloseGap);
+      END_IF
+	  
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
     GearStep.AutomaticSecondaryStruckigCloseGap:
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
@@ -68,6 +95,7 @@ REPEAT
       Assert(_axis.PositionX);
       Assert(_axis.RotationC);
       
+      (*
       IF _timer.Done
       THEN
         IF _spin.Next() > 0.5
@@ -75,6 +103,7 @@ REPEAT
           _step.SetNext(GearStep.AutomaticSecondaryStruckigOpenGap);
 				END_IF
 			END_IF
+      *)
       
       IF Halting
       THEN
@@ -163,7 +192,17 @@ REPEAT
   ELSE
     Abort('sequence contains unhandled step');
   END_CASE
-UNTIL _step.IsNotRepeatable() OR_ELSE NOT Busy END_REPEAT]]></ST>
+UNTIL _step.IsNotRepeatable() OR_ELSE NOT Busy END_REPEAT
+
+// Update trajactory
+IF _step.Index >= GearStep.AutomaticSecondaryStruckigRotate
+THEN
+  _otg();
+  _axis.RotationC.SetInterpolatedPosition(startToken:=_startToken, _otg.CurrentPosition[0]);
+  _axis.RotationC.SetInterpolatedVelocity(startToken:=_startToken, _otg.CurrentVelocity[0]);
+END_IF
+
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
