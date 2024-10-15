@@ -51,14 +51,14 @@ VAR_INPUT
   bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
   bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
   parent : ZCore.IManagedObject; // caller of the Unit's cyclic method. If the Unit runs in its own context use 0
-  displayName : ZCore.ZString;  // name of this unit as it should show up in the logger
+  name : ZCore.ZString;  // name of this unit as it should show up in the logger
   configdata : REFERENCE TO MachineDataConfig;  // reference to the configuration data that is used during boot to configure the Units equipment
   machinedata : REFERENCE TO MachineDataMachine; // reference to the machine data that is used through most sequences of the unit (motor speed, axes positions, ...)
   calibrationdata : REFERENCE TO MachineDataCalibration;  // reference to calibration that is determined by calibration sequences of the unit (static offsets, shifts)
   com : REFERENCE TO MachineCom;  // reference to the communication interface that is used to control this Unit via ADS
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_name := displayName;
+        <ST><![CDATA[_name := name;
 
 // initialize local logger decorator
 _loggerDecorator.FB_init(bInitRetains, bInCopyCode, name, ZModuleProgram.Logger);
