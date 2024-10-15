@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="MachineSequenceAutomatic" Id="{45b97503-6170-42a3-b50e-30cb99a9c3ad}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK MachineSequenceAutomatic EXTENDS MachineSequence IMPLEMENTS ZCore.ISequence
+  <POU Name="GearSequenceAutomaticPrimary" Id="{cc9958b9-4d13-4cae-8076-ec6933855327}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK GearSequenceAutomaticPrimary EXTENDS GearSequence IMPLEMENTS ZCore.ISequence
 VAR
-  _step : ZCore.Step(MachineStep.AutomaticBegin, MachineStep.AutomaticEnd);
+  _step : ZCore.Step(GearStep.AutomaticPrimaryBegin, GearStep.AutomaticPrimaryEnd);
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF NOT Busy THEN
@@ -27,19 +27,31 @@ REPEAT
 
   CASE _step.Index OF
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
-    MachineStep.AutomaticBegin:
+    GearStep.AutomaticPrimaryBegin:
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
       IF _step.OnEntry()
       THEN
-        _unit.PrimaryGear.RunAutomaticAsync(THIS^, _parent);
-        _unit.SimpleGear.RunAutomaticAsync(THIS^, _parent);
-        _unit.StruckigGear.RunAutomaticAsync(THIS^, _parent);        
+        _axis.RotationC.MoveVelocityAsync(THIS^, _data.Machine.HighspeedC);
       END_IF
-      
-      Await3(obj1:=_unit.PrimaryGear, obj2:=_unit.SimpleGear, obj3:=_unit.StruckigGear, nextStep:=MachineStep.AutomaticEnd);
+
+      IF Halting
+      THEN
+        _step.SetNext(GearStep.AutomaticPrimaryHalt);
+			END_IF
       
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
-    MachineStep.AutomaticEnd:
+    GearStep.AutomaticPrimaryHalt:
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)    
+      IF _step.OnEntry()
+      THEN
+        _axis.RotationC.StopAsync(THIS^);
+      END_IF
+
+      Assert(_axis.RotationC);
+      Await(obj1:=_axis.RotationC, nextStep:=GearStep.AutomaticPrimaryEnd);
+            
+    (* -------------------------------------------------------------------------------------------------------------------------------- *)
+    GearStep.AutomaticPrimaryEnd:
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
       SetBusy(FALSE);
   

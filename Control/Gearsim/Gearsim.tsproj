@@ -998,44 +998,60 @@ External Setpoint Generation:
 		</System>
 		<Plc>
 			<Project GUID="{045FF362-CC33-421E-898C-923B80D929AF}" Name="Gearsim" PrjFilePath="Gearsim\Gearsim.plcproj" TmcFilePath="Gearsim\Gearsim.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{DBA7FC13-47B4-E5CA-66D1-56D26750EC3D}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Gearsim\Gearsim.tmc" TmcHash="{B29878F7-A5B7-E385-C79E-910ADDA2CA60}">
 					<Name>Gearsim Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>ZModuleTask Inputs</Name>
 						<Var>
-							<Name>ZModuleProgram.LeftGear._equipment.Axis.PositionX._implPhysical._drive.Axis.NcToPlc</Name>
+							<Name>ZModuleProgram.PrimaryGear._equipment.Axis.PositionX._implPhysical._drive.Axis.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>ZModuleProgram.LeftGear._equipment.Axis.RotationC._implPhysical._drive.Axis.NcToPlc</Name>
+							<Name>ZModuleProgram.PrimaryGear._equipment.Axis.RotationC._implPhysical._drive.Axis.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>ZModuleProgram.RightGear._equipment.Axis.PositionX._implPhysical._drive.Axis.NcToPlc</Name>
+							<Name>ZModuleProgram.SimpleGear._equipment.Axis.PositionX._implPhysical._drive.Axis.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>ZModuleProgram.RightGear._equipment.Axis.RotationC._implPhysical._drive.Axis.NcToPlc</Name>
+							<Name>ZModuleProgram.SimpleGear._equipment.Axis.RotationC._implPhysical._drive.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>ZModuleProgram.StruckigGear._equipment.Axis.PositionX._implPhysical._drive.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>ZModuleProgram.StruckigGear._equipment.Axis.RotationC._implPhysical._drive.Axis.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>ZModuleTask Outputs</Name>
 						<Var>
-							<Name>ZModuleProgram.LeftGear._equipment.Axis.PositionX._implPhysical._drive.Axis.PlcToNc</Name>
+							<Name>ZModuleProgram.PrimaryGear._equipment.Axis.PositionX._implPhysical._drive.Axis.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>ZModuleProgram.LeftGear._equipment.Axis.RotationC._implPhysical._drive.Axis.PlcToNc</Name>
+							<Name>ZModuleProgram.PrimaryGear._equipment.Axis.RotationC._implPhysical._drive.Axis.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>ZModuleProgram.RightGear._equipment.Axis.PositionX._implPhysical._drive.Axis.PlcToNc</Name>
+							<Name>ZModuleProgram.SimpleGear._equipment.Axis.PositionX._implPhysical._drive.Axis.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>ZModuleProgram.RightGear._equipment.Axis.RotationC._implPhysical._drive.Axis.PlcToNc</Name>
+							<Name>ZModuleProgram.SimpleGear._equipment.Axis.RotationC._implPhysical._drive.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>ZModuleProgram.StruckigGear._equipment.Axis.PositionX._implPhysical._drive.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>ZModuleProgram.StruckigGear._equipment.Axis.RotationC._implPhysical._drive.Axis.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 					</Vars>

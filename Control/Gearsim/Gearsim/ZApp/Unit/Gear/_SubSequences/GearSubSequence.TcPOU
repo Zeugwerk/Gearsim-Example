@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="GearSubSequence" Id="{3099013d-bb36-46bd-a1bb-d7a5c6e9d43f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK GearSubSequence EXTENDS GearContainer
+VAR_INPUT
+
+{region "fc3b2a3d-8136-4db1-aaab-6cca602a7edf"}
+  AutomaticPrimary : GearSequenceAutomaticPrimary(_parent);
+{endregion} // #fc3b2a3d-8136-4db1-aaab-6cca602a7edf
+{region "16b36b8d-fde6-4830-a9e3-c3507d13faec"}
+  AutomaticSecondarySimple : GearSequenceAutomaticSecondarySimple(_parent);
+{endregion} // #16b36b8d-fde6-4830-a9e3-c3507d13faec
+{region "79362472-a44e-4c7c-b677-cada7c3c933b"}
+  AutomaticSecondaryStruckig : GearSequenceAutomaticSecondaryStruckig(_parent);
+{endregion} // #79362472-a44e-4c7c-b677-cada7c3c933b
+  {attribute '__ZwPlcUnitSequence__'}
+  
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT _isInitialized THEN
+  
+{region "fc3b2a3d-8136-4db1-aaab-6cca602a7edf"}
+  AutomaticPrimary.SetName('AutomaticPrimary');
+  AutomaticPrimary.SetLogger(_parent._logger);
+{endregion} // #fc3b2a3d-8136-4db1-aaab-6cca602a7edf
+{region "16b36b8d-fde6-4830-a9e3-c3507d13faec"}
+  AutomaticSecondarySimple.SetName('AutomaticSecondarySimple');
+  AutomaticSecondarySimple.SetLogger(_parent._logger);
+{endregion} // #16b36b8d-fde6-4830-a9e3-c3507d13faec
+{region "79362472-a44e-4c7c-b677-cada7c3c933b"}
+  AutomaticSecondaryStruckig.SetName('AutomaticSecondaryStruckig');
+  AutomaticSecondaryStruckig.SetLogger(_parent._logger);
+{endregion} // #79362472-a44e-4c7c-b677-cada7c3c933b
+  {attribute '__ZwPlcUnitSequence__'}
+  
+  _isInitialized := TRUE;
+
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

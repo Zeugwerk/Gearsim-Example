@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="GearSequenceBoot" Id="{aadc9c16-8418-42d5-9d4f-f0659156bc03}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK GearSequenceBoot EXTENDS GearSequence IMPLEMENTS ZCore.ISequence
@@ -19,6 +19,9 @@ REPEAT
     (* -------------------------------------------------------------------------------------------------------------------------------- *)
       IF _step.OnEntry()
       THEN
+        // initialize subsequences
+        _subSequence();
+
         // initialize equipment
         _io();
         _actuator();

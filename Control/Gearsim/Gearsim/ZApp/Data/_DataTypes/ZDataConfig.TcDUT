@@ -3,9 +3,9 @@
   <DUT Name="ZDataConfig" Id="{0f310ec7-f3db-4720-8b92-ca305f44cea9}">
     <Declaration><![CDATA[TYPE ZDataConfig :
 STRUCT
-{region "LeftGear"}
-{IF NOT (defined (LeftGear_disabled))}
-  LeftGear : GearDataConfig;
+{region "PrimaryGear"}
+{IF NOT (defined (PrimaryGear_disabled))}
+  PrimaryGear : GearDataConfig;
   {attribute 'ZId' := 'd1deea68-6f8b-4ea5-9916-7be69dc951fa'}
 {END_IF}
 {endregion}
@@ -15,10 +15,16 @@ STRUCT
   {attribute 'ZId' := '9a1e8940-043c-4b8f-bd95-526fb267b71c'}
 {END_IF}
 {endregion}
-{region "RightGear"}
-{IF NOT (defined (RightGear_disabled))}
-  RightGear : GearDataConfig;
+{region "SimpleGear"}
+{IF NOT (defined (SimpleGear_disabled))}
+  SimpleGear : GearDataConfig;
   {attribute 'ZId' := '215d1db4-d61a-4f46-91b5-612373b86c91'}
+{END_IF}
+{endregion}
+{region "StruckigGear"}
+{IF NOT (defined (StruckigGear_disabled))}
+  StruckigGear : GearDataConfig;
+  {attribute 'ZId' := 'd827270e-999f-436d-80d5-b12442f5d1cf'}
 {END_IF}
 {endregion}
 {attribute '__ZwPlcApplicationDataConfigDeclaration__'} // Do not remove this attribute! It is used for code generation.

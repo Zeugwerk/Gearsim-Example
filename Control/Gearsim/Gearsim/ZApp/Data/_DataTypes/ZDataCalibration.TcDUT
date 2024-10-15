@@ -3,9 +3,9 @@
   <DUT Name="ZDataCalibration" Id="{830ee3ce-4914-42f0-b9a5-8d1b0670046a}">
     <Declaration><![CDATA[TYPE ZDataCalibration :
 STRUCT
-{region "LeftGear"}
-{IF NOT (defined (LeftGear_disabled))}
-  LeftGear : GearDataCalibration;
+{region "PrimaryGear"}
+{IF NOT (defined (PrimaryGear_disabled))}
+  PrimaryGear : GearDataCalibration;
   {attribute 'ZId' := 'd1deea68-6f8b-4ea5-9916-7be69dc951fa'}
 {END_IF}
 {endregion}
@@ -15,10 +15,16 @@ STRUCT
   {attribute 'ZId' := '9a1e8940-043c-4b8f-bd95-526fb267b71c'}
 {END_IF}
 {endregion}
-{region "RightGear"}
-{IF NOT (defined (RightGear_disabled))}
-  RightGear : GearDataCalibration;
+{region "SimpleGear"}
+{IF NOT (defined (SimpleGear_disabled))}
+  SimpleGear : GearDataCalibration;
   {attribute 'ZId' := '215d1db4-d61a-4f46-91b5-612373b86c91'}
+{END_IF}
+{endregion}
+{region "StruckigGear"}
+{IF NOT (defined (StruckigGear_disabled))}
+  StruckigGear : GearDataCalibration;
+  {attribute 'ZId' := 'd827270e-999f-436d-80d5-b12442f5d1cf'}
 {END_IF}
 {endregion}
 {attribute '__ZwPlcApplicationDataCalibrationDeclaration__'} // Do not remove this attribute! It is used for code generation.

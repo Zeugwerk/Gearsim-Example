@@ -12,30 +12,43 @@
 /// task as the Module the parent may be set to the Module's Application.
 PROGRAM GearUnitProgram
 VAR
-{region "LeftGear"}
+{region "PrimaryGear"}
 {undefine RunInSeparateProgram}
-{IF NOT (defined (LeftGear_disabled)) AND (defined (RunInSeparateProgram))}
-  LeftGear : GearUnit(name := 'LeftGear', // name of the unit (for logging)
+{IF NOT (defined (PrimaryGear_disabled)) AND (defined (RunInSeparateProgram))}
+  PrimaryGear : GearUnit(name := 'PrimaryGear', // name of the unit (for logging)
 					  parent := 0, // caller of the Unit's cyclic method. If the Unit runs in its own context use 0
-						configdata := ZGlobal.Data.Config.LeftGear,
-						machinedata := ZGlobal.Data.Machine.LeftGear,
-						calibrationdata := ZGlobal.Data.Calibration.LeftGear,
-						com := ZGlobal.Com.Unit.LeftGear);
+						configdata := ZGlobal.Data.Config.PrimaryGear,
+						machinedata := ZGlobal.Data.Machine.PrimaryGear,
+						calibrationdata := ZGlobal.Data.Calibration.PrimaryGear,
+						com := ZGlobal.Com.Unit.PrimaryGear);
   {attribute 'section' := '__ZwPlcUnitProgramDeclaration__'}
   {attribute 'ZId' := 'd1deea68-6f8b-4ea5-9916-7be69dc951fa'}
 {END_IF}
 {endregion}
-{region "RightGear"}
+{region "SimpleGear"}
 {undefine RunInSeparateProgram}
-{IF NOT (defined (RightGear_disabled)) AND (defined (RunInSeparateProgram))}
-  RightGear : GearUnit(name := 'RightGear', // name of the unit (for logging)
+{IF NOT (defined (SimpleGear_disabled)) AND (defined (RunInSeparateProgram))}
+  SimpleGear : GearUnit(name := 'SimpleGear', // name of the unit (for logging)
 					  parent := 0, // caller of the Unit's cyclic method. If the Unit runs in its own context use 0
-						configdata := ZGlobal.Data.Config.RightGear,
-						machinedata := ZGlobal.Data.Machine.RightGear,
-						calibrationdata := ZGlobal.Data.Calibration.RightGear,
-						com := ZGlobal.Com.Unit.RightGear);
+						configdata := ZGlobal.Data.Config.SimpleGear,
+						machinedata := ZGlobal.Data.Machine.SimpleGear,
+						calibrationdata := ZGlobal.Data.Calibration.SimpleGear,
+						com := ZGlobal.Com.Unit.SimpleGear);
   {attribute 'section' := '__ZwPlcUnitProgramDeclaration__'}
   {attribute 'ZId' := '215d1db4-d61a-4f46-91b5-612373b86c91'}
+{END_IF}
+{endregion}
+{region "StruckigGear"}
+{undefine RunInSeparateProgram}
+{IF NOT (defined (StruckigGear_disabled)) AND (defined (RunInSeparateProgram))}
+  StruckigGear : GearUnit(name := 'StruckigGear', // name of the unit (for logging)
+					  parent := 0, // caller of the Unit's cyclic method. If the Unit runs in its own context use 0
+						configdata := ZGlobal.Data.Config.StruckigGear,
+						machinedata := ZGlobal.Data.Machine.StruckigGear,
+						calibrationdata := ZGlobal.Data.Calibration.StruckigGear,
+						com := ZGlobal.Com.Unit.StruckigGear);
+  {attribute 'section' := '__ZwPlcUnitProgramDeclaration__'}
+  {attribute 'ZId' := 'd827270e-999f-436d-80d5-b12442f5d1cf'}
 {END_IF}
 {endregion}
 {attribute '__ZwPlcUnitProgramDeclaration__'} // Do not remove this attribute! It is used for code generation.
@@ -44,20 +57,28 @@ END_VAR
     <Implementation>
       <ST><![CDATA[// run the unit - the cylics of all children will be called as well
 
-{region "LeftGear"}
+{region "PrimaryGear"}
 {undefine RunInSeparateProgram}
-{IF NOT (defined (LeftGear_disabled)) AND (defined (RunInSeparateProgram))}
-  LeftGear.Cyclic();
+{IF NOT (defined (PrimaryGear_disabled)) AND (defined (RunInSeparateProgram))}
+  PrimaryGear.Cyclic();
   {attribute 'section' := '__ZwPlcUnitProgramImplementation__'}
   {attribute 'ZId' := 'd1deea68-6f8b-4ea5-9916-7be69dc951fa'}
 {END_IF}
 {endregion}
-{region "RightGear"}
+{region "SimpleGear"}
 {undefine RunInSeparateProgram}
-{IF NOT (defined (RightGear_disabled)) AND (defined (RunInSeparateProgram))}
-  RightGear.Cyclic();
+{IF NOT (defined (SimpleGear_disabled)) AND (defined (RunInSeparateProgram))}
+  SimpleGear.Cyclic();
   {attribute 'section' := '__ZwPlcUnitProgramImplementation__'}
   {attribute 'ZId' := '215d1db4-d61a-4f46-91b5-612373b86c91'}
+{END_IF}
+{endregion}
+{region "StruckigGear"}
+{undefine RunInSeparateProgram}
+{IF NOT (defined (StruckigGear_disabled)) AND (defined (RunInSeparateProgram))}
+  StruckigGear.Cyclic();
+  {attribute 'section' := '__ZwPlcUnitProgramImplementation__'}
+  {attribute 'ZId' := 'd827270e-999f-436d-80d5-b12442f5d1cf'}
 {END_IF}
 {endregion}
 {attribute '__ZwPlcUnitProgramImplementation__'} // Do not remove this attribute! It is used for code generation.

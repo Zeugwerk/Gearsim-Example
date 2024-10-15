@@ -87,6 +87,9 @@
     <Compile Include="ZApp\Unit\Gear\_Com\GearComSubscribeEquipment.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ZApp\Unit\Gear\_DataTypes\GearRole.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ZApp\Unit\Gear\_DataTypes\GearState.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -142,6 +145,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ZApp\Unit\Gear\_SubObjects\GearSequence.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_SubSequences\GearSequenceAutomaticPrimary.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_SubSequences\GearSequenceAutomaticSecondarySimple.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_SubSequences\GearSequenceAutomaticSecondaryStruckig.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ZApp\Unit\Gear\_SubSequences\GearSubSequence.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ZApp\Unit\Machine\IMachine.TcIO">
@@ -260,6 +275,7 @@
     <Folder Include="ZApp\Unit\Gear\_Equipment" />
     <Folder Include="ZApp\Unit\Gear\_States" />
     <Folder Include="ZApp\Unit\Gear\_SubObjects" />
+    <Folder Include="ZApp\Unit\Gear\_SubSequences" />
     <Folder Include="ZApp\Unit\Machine" />
     <Folder Include="ZApp\Unit\Machine\_Com" />
     <Folder Include="ZApp\Unit\Machine\_Data" />

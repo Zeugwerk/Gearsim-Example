@@ -15,6 +15,7 @@ VAR
   _faultReaction : GearSequenceFaultReaction(THIS^);
   
   _statemachine : ZApplication.UnitStateMachine;
+  _subSequence : GearSubSequence(THIS^);
 
   _observeTimer : ZAux.Timer;
 END_VAR
