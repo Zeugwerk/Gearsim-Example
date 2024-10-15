@@ -9,14 +9,18 @@ SetWindowPos = windll.user32.SetWindowPos
 
 # Pygame initialization
 pygame.init()
-screen = pygame.display.set_mode((800, 600))    
+screen = pygame.display.set_mode((800, 600)) 
+font = pygame.font.Font(pygame.font.get_default_font(), 16)
 pygame.display.set_caption("gearsim")
 
 # Colors
 LSPIN_COLOR = (218, 119, 109)
-RSPIN_COLOR = (245, 241, 238)
+RSPIN_COLOR = (202,208,222)
 COLLISION_COLOR = (218, 119, 109)
 BACKGROUND_COLOR = (71, 91, 120)
+GRAY = (245,241,238)
+TRANSPARENT_GRAY = (202,208,222, 128)
+WHITE = (255, 255, 255)
 
 # PLC
 netid = None
@@ -32,6 +36,24 @@ gear3_pos = np.array([200, 300])
 orbital_angle1 = 0
 orbital_angle2 = 0
 
+def draw_hexagon(surface, color, center, radius):
+    # Calculate the vertices of the hexagon
+    vertices = []
+    for i in range(6):
+        angle_deg = 60 * i
+        angle_rad = math.radians(angle_deg)
+        x = center[0] + radius * math.sin(angle_rad)
+        y = center[1] + radius * math.cos(angle_rad)
+        vertices.append((x, y))
+    # Draw the hexagon
+    pygame.draw.polygon(surface, color, vertices)
+
+def draw_text(text, pos):
+    draw_hexagon(screen, (42,51,75), (pos[0],pos[1]), 25)
+    
+    text_surface = font.render(text, True, (245,241,238))
+    screen.blit(text_surface, dest=text_surface.get_rect(center=(pos[0],pos[1])))
+    
 def draw_gear(screen, pos, radius, tooth_count, tooth_depth, rotation, color):
     angle_step = 2 * np.pi / tooth_count
     points = []
@@ -46,7 +68,7 @@ def draw_gear(screen, pos, radius, tooth_count, tooth_depth, rotation, color):
         points.append((x, y))
     pygame.draw.polygon(screen, color, points)
     
-def draw_rail_with_inner_slot(screen, pos1, pos2, outer_width=15, inner_width=5, hole_radius=20, color=COLLISION_COLOR):
+def draw_rail_with_inner_slot(screen, pos1, pos2, outer_width=15, inner_width=5, hole_radius=20):
     """ Draws a rail with a transparent inner slot and a hole in the middle """
     # Calculate the angle of the rail
     angle = math.atan2(pos2[1] - pos1[1], pos2[0] - pos1[0])
@@ -76,7 +98,7 @@ def draw_rail_with_inner_slot(screen, pos1, pos2, outer_width=15, inner_width=5,
     ]
     
     # Draw the outer rail
-    pygame.draw.polygon(screen, color, outer_points)
+    pygame.draw.polygon(screen, GRAY, outer_points)
 
     # Create a transparent surface for the inner slot
     rail_surface = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)
@@ -84,8 +106,9 @@ def draw_rail_with_inner_slot(screen, pos1, pos2, outer_width=15, inner_width=5,
     screen.blit(rail_surface, (0, 0))
 
     # Draw circles at the endpoints for rounded edges of the outer rail
-    pygame.draw.circle(screen, color, pos1.astype(int), half_outer_width)
-    pygame.draw.circle(screen, color, pos2.astype(int), half_outer_width)   
+    pygame.draw.circle(screen, GRAY, pos1.astype(int), half_outer_width)
+    pygame.draw.circle(screen, GRAY, pos2.astype(int), half_outer_width)
+
 
 def line_intersect(p1, p2, q1, q2):
     """ Check if two line segments (p1, p2) and (q1, q2) intersect """
@@ -130,6 +153,9 @@ def read_gear_pos(plc, name):
 def read_gear_rot(plc, name):    
     return plc.read_by_name(f"ZGlobal.Com.Unit.{name}.Publish.Equipment.RotationC.Base.ActualPosition", pyads.PLCTYPE_LREAL)
 
+def read_phase_offset(plc, name):    
+    return plc.read_by_name(f"ZGlobal.Com.Unit.{name}.Publish.PhaseOffsetC", pyads.PLCTYPE_LREAL)
+
 # Connect to PLC
 if netid is None:
     pyads.ads.open_port()
@@ -160,7 +186,7 @@ while running:
     gear2_distance = 200 + read_gear_pos(plc, "SimpleGear")
     gear3_distance = -200 - read_gear_pos(plc, "StruckigGear")
     
-    orbital_angle1 += 0.006
+    orbital_angle1 += 0.007
     orbital_angle2 -= 0.009
     gear2_pos = np.array([gear1_pos[0] + gear2_distance * np.cos(orbital_angle1), gear1_pos[1] + gear2_distance * np.sin(orbital_angle1)])
     gear3_pos = np.array([gear1_pos[0] + gear3_distance * np.cos(orbital_angle2), gear1_pos[1] + gear3_distance * np.sin(orbital_angle2)])
@@ -168,6 +194,9 @@ while running:
     gear1_rotation = read_gear_rot(plc, "PrimaryGear")  / 180 * np.pi
     gear2_rotation = -read_gear_rot(plc, "SimpleGear")  / 180 * np.pi
     gear3_rotation = -read_gear_rot(plc, "StruckigGear")  / 180 * np.pi
+
+    draw_rail_with_inner_slot(screen, gear1_pos, np.array([gear1_pos[0] + 250 * np.cos(orbital_angle1), gear1_pos[1] + 250 * np.sin(orbital_angle1)]), outer_width=30, inner_width=10, hole_radius=25)
+    draw_rail_with_inner_slot(screen, gear1_pos, np.array([gear1_pos[0] - 230 * np.cos(orbital_angle2), gear1_pos[1] - 230 * np.sin(orbital_angle2)]), outer_width=30, inner_width=10, hole_radius=25)
 
     # Detect collisions and adjust color
     gear2_color = COLLISION_COLOR if detect_collision(gear1_pos, gear2_pos, gear1_rotation, gear2_rotation, gear_radius, gear_radius, tooth_depth, tooth_count) else RSPIN_COLOR
@@ -178,9 +207,14 @@ while running:
     draw_gear(screen, gear3_pos, gear_radius, tooth_count, tooth_depth, gear3_rotation, gear3_color)
     draw_gear(screen, gear2_pos, gear_radius, tooth_count, tooth_depth, gear2_rotation, gear2_color)
     
-    draw_rail_with_inner_slot(screen, gear1_pos, np.array([gear1_pos[0] + 170 * np.cos(orbital_angle1), gear1_pos[1] + 170 * np.sin(orbital_angle1)]), outer_width=30, inner_width=10, hole_radius=25, color=LSPIN_COLOR)
-    draw_rail_with_inner_slot(screen, gear1_pos, np.array([gear1_pos[0] - 190 * np.cos(orbital_angle2), gear1_pos[1] - 190 * np.sin(orbital_angle2)]), outer_width=30, inner_width=10, hole_radius=25, color=LSPIN_COLOR)
-
+    draw_hexagon(screen, (42,51,75), (gear1_pos[0],gear1_pos[1]), 15)
+    
+    # Draw text
+    phase_offset1 = read_phase_offset(plc, "SimpleGear")
+    phase_offset2 = read_phase_offset(plc, "StruckigGear")   
+    
+    draw_text(f"{phase_offset1:.1f}°", gear2_pos)
+    draw_text(f"{phase_offset2:.1f}°", gear3_pos)
 
     # Update display
     pygame.display.flip()

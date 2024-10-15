@@ -1,4 +1,4 @@
-pyads~=3.3.9
+pyads~=3.4.2
 pygame
 PyOpenGL
 numpy
